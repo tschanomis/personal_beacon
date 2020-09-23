@@ -1,0 +1,218 @@
+openapi: 3.0.0
+info:
+  title: 'API velib'
+  version: '0.1'
+servers:
+  -
+    url: 'http://localhost:8000/api'
+    description: 'api geo velib'
+paths:
+  '/places/delete/{name}':
+    delete:
+      operationId: 'App\Http\Controllers\ControllerPlaces::deletePosition'
+      parameters:
+        -
+          name: name
+          in: path
+          description: 'Nom de la station à effacer'
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Supression de la station'
+          content:
+            application/json:
+              schema:
+                description: 'Tableau de la station correspondante'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Suppression'
+        '410':
+          description: 'Nom de station déja utilisé'
+          content:
+            application/json:
+              schema:
+                description: 'Tableau d''erreur'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Erreurs'
+        '500':
+          description: 'Erreur serveur'
+          content:
+            application/json:
+              schema:
+                description: 'Tableau d''erreur'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Erreurs'
+  /places/create/position:
+    post:
+      operationId: 'App\Http\Controllers\ControllerPlaces::createPosition'
+      responses:
+        '200':
+          description: 'Création nouvelle station'
+          content:
+            application/json:
+              schema:
+                description: 'Tableau de la station correspondante'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Stations'
+        '400':
+          description: 'Erreur validité des données client'
+          content:
+            application/json:
+              schema:
+                description: 'Tableau d''erreur'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Erreurs'
+        '409':
+          description: 'Nom de station déja utilisé'
+          content:
+            application/json:
+              schema:
+                description: 'Tableau d''erreur'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Erreurs'
+        '500':
+          description: 'Erreur serveur'
+          content:
+            application/json:
+              schema:
+                description: 'Tableau d''erreur'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Erreurs'
+  /places/position:
+    post:
+      operationId: 'App\Http\Controllers\ControllerPlaces::byPosition'
+      responses:
+        '200':
+          description: 'Les stations en fonction du rayon'
+          content:
+            application/json:
+              schema:
+                description: 'Tableau de la station correspondante'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Stations'
+        '400':
+          description: 'Erreur validité des données client'
+          content:
+            application/json:
+              schema:
+                description: 'Tableau d''erreur'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Erreurs'
+        '404':
+          description: 'Erreur pas de stations'
+          content:
+            application/json:
+              schema:
+                description: 'Tableau d''erreur'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Erreurs'
+        '500':
+          description: 'Erreur serveur'
+          content:
+            application/json:
+              schema:
+                description: 'Tableau d''erreur'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Erreurs'
+  '/places/{name}':
+    post:
+      operationId: 'App\Http\Controllers\ControllerPlaces::byName'
+      parameters:
+        -
+          name: name
+          in: path
+          description: 'Nom de la station recherchée'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Une station appelée par son nom'
+          content:
+            application/json:
+              schema:
+                description: 'Tableau de la station correspondante'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Stations'
+        '404':
+          description: Erreur
+          content:
+            application/json:
+              schema:
+                description: 'Tableau d''erreur'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Erreurs'
+        '500':
+          description: 'Erreur serveur'
+          content:
+            application/json:
+              schema:
+                description: 'Tableau d''erreur'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Erreurs'
+  /places:
+    get:
+      operationId: 'App\Http\Controllers\ControllerPlaces::allPlaces'
+      responses:
+        '200':
+          description: 'Toutes les stations enregistrées'
+          content:
+            application/json:
+              schema:
+                description: 'Tableau de toutes les stations enregistrées'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Stations'
+        '500':
+          description: 'Erreur serveur'
+          content:
+            application/json:
+              schema:
+                description: 'Tableau d''erreur'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Erreurs'
+components:
+  schemas:
+    Erreurs:
+      properties:
+        name:
+          type: string
+        message:
+          type: string
+      type: object
+    Stations:
+      properties:
+        id:
+          type: integer
+        Nom_de_la_station:
+          type: string
+        geo:
+          type: string
+        Nombre_vélo_électrique:
+          type: integer
+        Nombre_de_vélo_mécanique:
+          type: integer
+      type: object
+    Suppression:
+      properties:
+        Message:
+          type: string
+        name:
+          type: string
+      type: object

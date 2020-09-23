@@ -1,0 +1,46 @@
+.Dashboard {
+  display: grid;
+  grid-template-columns: 250px auto;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.Dashboard-right {
+  display: grid;
+  grid-template-rows: 40px 40px auto;
+  height: 100vh;
+}
+
+.Stats-container {
+}
+
+.Dashboard-right-stats-header {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  font-weight: bold;
+  color: #233068;
+}
+
+.Dashboard-display-info {
+  display: none;
+}
+
+@media only screen and (max-width: 500px) {
+  /* Appareils avec une résolution de 500 pixels ou moins */
+  .Dashboard-display-info {
+    display: block;
+    position: fixed;
+    height: 50px;
+    width: 50px;
+    bottom: 0;
+    left: 0;
+    z-index: 5000;
+    border-radius: 0 20px 0 0;
+    border-style: none;
+    background-color: white;
+    font-weight: bolder;
+    font-size: 2em;
+  }
+}

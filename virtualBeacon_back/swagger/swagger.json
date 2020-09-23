@@ -1,0 +1,33 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "API velib",
+		"version": 0.1
+	},
+	"servers": [
+		{
+			"url": "http://localhost:8000/api",
+			"description": "api geo velib"
+		}
+	],
+	"paths": {
+		"/places": {
+			"get": {
+				"operationId": "App\\Http\\Controllers\\ControllerPlaces::allPlaces",
+				"responses": {
+					"200": {
+						"description": "Les positions enregistrées",
+						"content": {
+							"application/json": {
+								"schema": {
+									"description": "Tableaux de toutes les positions enregistrées",
+									"type": "array"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

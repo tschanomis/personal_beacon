@@ -1,0 +1,113 @@
+.DashboardMenu {
+  display: flex;
+  justify-content: space-between;
+  z-index: 3000;
+  background-color: #233068;
+  width: 100%;
+}
+
+.DashboardMenu-body {
+  display: flex;
+  font-weight: bold;
+  color: white;
+}
+
+.DashboardMenu-body-item a:-webkit-any-link {
+  color: white;
+  cursor: pointer;
+}
+
+.DashboardMenu-body-item {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  margin-left: 20px;
+  color: white;
+}
+
+.DashboardMenu-body-item:hover {
+  cursor: pointer;
+}
+
+.DashboardMenu-account {
+  display: flex;
+  align-items: center;
+  color: white;
+  margin-right: 20px;
+  font-size: 0.9em;
+}
+
+.DashboardMenu-account-picture {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  background-color: gray;
+  margin-left: 20px;
+}
+
+.DashboardMenu-account-arrow {
+  margin-left: 5px;
+  font-weight: bolder;
+}
+
+.DashboardMenu-account-arrow:hover {
+  cursor: pointer;
+}
+
+.DashboardMenu-account-options {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  right: 0;
+  top: 40px;
+  height: 75px;
+  background-color: #233068;
+}
+
+.DashboardMenu-account-options {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  right: 0;
+  top: 40px;
+  height: 50px;
+  background-color: #233068;
+  font-size: 0.9em;
+  border-top: solid 1px #0000003d;
+}
+
+.DashboardMenu-account-options a:-webkit-any-link {
+  color: white;
+  cursor: pointer;
+}
+
+.DashboardMenu-account-options a:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 500px) {
+  /* Appareils avec une résolution de 500 pixels ou moins */
+  .DashboardMenu {
+    display: flex;
+    justify-content: space-between;
+    z-index: 3000;
+    background-color: #233068;
+    width: 100vw;
+  }
+
+  .DashboardMenu-body-item {
+    margin: 10px;
+  }
+
+  .DashboardMenu-account {
+    margin: 10px;
+  }
+
+  .DashboardMenu-account p {
+    display: none;
+  }
+}

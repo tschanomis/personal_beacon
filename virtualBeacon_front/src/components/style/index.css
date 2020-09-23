@@ -1,0 +1,81 @@
+@keyframes donut-fill {
+  to {
+    stroke-dasharray: 0 100;
+  }
+}
+
+@keyframes text-slideup {
+  from {
+    opacity: 0;
+    transform: translateY(0%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
+}
+
+.donut {
+  width: 100px;
+  height: 100px;
+  margin: 0;
+  padding: 0;
+}
+
+.donut__frame,
+.donut__circle {
+  stroke-width: 0.175rem;
+  fill: none;
+}
+
+.donut__frame {
+  display: flex;
+  stroke: #2ab5ac;
+  margin: 0;
+  padding: 0;
+}
+
+.donut__circle {
+  stroke: #233068;
+  stroke-linecap: round;
+}
+
+.donut__canvas {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.donut__circle {
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  animation: donut-fill 2s reverse;
+}
+
+.donut__circle[stroke-dasharray="0 100"] {
+  stroke: none;
+}
+
+.donut__text {
+  font-family: monospace;
+  font-size: 3rem;
+  letter-spacing: -0.15rem;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  z-index: 0;
+  transform: translateY(-50%);
+  animation: text-slideup 4s linear;
+}
+
+.donut.is--negative .donut__circle {
+  transform: rotate(-90deg) scaleY(-1);
+}
+
+strong {
+  display: none;
+}

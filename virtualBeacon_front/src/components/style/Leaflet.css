@@ -1,0 +1,102 @@
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+}
+
+.Popup-temp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Popup-temp-adding {
+  display: flex;
+  flex-direction: column;
+}
+
+.Popup-temp-adding h2 {
+  margin-bottom: 0;
+}
+
+.Popup-temp-adding-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Popup-temp-adding-form-geo {
+  display: flex;
+  align-items: center;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  border: solid 2px #5ac2ab;
+  border-radius: 20px;
+  font-family: "Roboto", "Sans-serif";
+  font-style: italic;
+}
+
+input[type="submit"] {
+  width: fit-content;
+  border: none;
+  border-radius: 50px;
+  color: white;
+  background: #233068;
+  font-family: "Roboto";
+  font-weight: bold;
+  font-size: 1em;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.Popup-container {
+  width: 200px;
+}
+
+.Popup-container hr {
+  border: 1px #898989 solid;
+  width: 100%;
+}
+
+.Popup-temp-adding hr {
+  border: 1px #898989 solid;
+  width: 100%;
+}
+
+.Popup-container-header,
+.Popup-container-geo {
+  display: flex;
+  align-items: baseline;
+}
+
+.Popup-container-options {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Popup-modify-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Popup-modify-options {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.Popup-modify-options-button-delete {
+  background-color: red;
+  color: white;
+  height: 30px;
+  border-radius: 30px;
+  border-style: none;
+  font-weight: bolder;
+}
+
+.Popup-modify-options-button-delete:hover {
+  cursor: pointer;
+}

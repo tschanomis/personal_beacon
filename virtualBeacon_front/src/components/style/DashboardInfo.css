@@ -1,0 +1,131 @@
+.DashboardInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-shadow: 5px 0px 10px 1px rgba(0, 0, 0, 0.35);
+  z-index: 1000;
+  color: #233068;
+}
+
+.DashboardInfo-exit {
+  display: none;
+}
+
+.DashboardInfo-header {
+  height: 80px;
+  padding: 5px;
+}
+
+.DashboardInfo-header-logo {
+  height: 80px;
+  background: url("../../Logo_N-Vibe_V2.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.DashboardInfo-header-main,
+.DashboardInfo-header-second {
+  display: flex;
+  align-items: baseline;
+}
+
+.DashboardInfo-stats {
+  justify-content: space-between;
+  height: 200px;
+  margin: 10px;
+  padding: 10px;
+  margin-bottom: 0;
+}
+
+.DashboardInfo-stats h4 {
+  margin: 5px;
+}
+
+.DashboardInfo-stats-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.DashboardInfo-stats-legend {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100px;
+  height: 100px;
+}
+
+.DashboardInfo-stats-legend-item {
+  display: flex;
+  align-items: baseline;
+  font-size: small;
+  font-weight: 900;
+}
+
+.DashboardInfo-stats-legend-item-color {
+  height: 10px;
+  width: 10px;
+  margin-right: 5px;
+}
+
+.DashboardInfo-filter input {
+  height: 20px;
+  margin: 0;
+  margin-top: 15px;
+  padding: 0;
+}
+
+.DashboardInfo-lists {
+  flex-grow: 1;
+  margin: 10px;
+  padding: 10px;
+  overflow: auto;
+}
+
+.DashboardInfo-lists::-webkit-scrollbar {
+  display: none;
+}
+
+.DashboardInfo hr {
+  border: 1px #898989 solid;
+  width: 100%;
+}
+
+.DashboardInfo-lists-card {
+  display: flex;
+  height: 75px;
+  background-color: white;
+  margin: 0 0 10px 0;
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.75);
+  font-size: 0.7em;
+}
+
+.DashboardInfo-lists-card:hover {
+  cursor: pointer;
+}
+
+.DashboardInfo-lists-card-color {
+  width: 5px;
+  height: 100%;
+}
+
+.DashboardInfo-lists-card-info {
+  padding: 10px;
+}
+
+@media only screen and (max-width: 500px) {
+  /* Appareils avec une résolution de 500 pixels ou moins */
+  .DashboardInfo {
+    display: none;
+  }
+  .DashboardInfo-exit {
+    display: block;
+    text-align: right;
+    margin: 5px;
+    font-weight: bolder;
+    color: gray;
+  }
+}
