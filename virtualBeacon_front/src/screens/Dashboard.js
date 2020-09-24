@@ -6,7 +6,7 @@ import {
 	Redirect
 } from 'react-router-dom';
 
-import axios from 'axios';
+import RequestAPI from "../Utils/API";
 
 import './style/Dashboard.css';
 
@@ -32,11 +32,9 @@ class Dashboard extends React.Component {
 	}
 
 	componentDidMount = () => {
-		const token = this.props.giveToken
-		const config = {
-			headers: { Authorization: `Bearer ${token}` }
+		RequestAPI("GET", "/places", {
+			token: this.props.giveToken
 		}
-		axios.get("http://ec2-18-218-63-27.us-east-2.compute.amazonaws.com:443/api/places", config
 		)
 			.then(result => {
 				if (result.status === 200) {

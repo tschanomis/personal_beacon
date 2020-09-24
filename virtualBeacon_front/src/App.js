@@ -20,13 +20,13 @@ export default function App() {
   })
 
   const handleToken = (token) => {
-    setManageAppBasic(...manageAppBasic, { token: token })
+    setManageAppBasic({ ...manageAppBasic, token: token })
   }
 
   const handleAlert = (msg) => {
-    setManageAppBasic(...manageAppBasic, { alert: true, message: msg })
+    setManageAppBasic({ ...manageAppBasic, alert: true, message: msg })
     setTimeout(() => {
-      setManageAppBasic(...manageAppBasic, { alert: false })
+      setManageAppBasic({ ...manageAppBasic, alert: false })
     }, 2000);
   }
 
