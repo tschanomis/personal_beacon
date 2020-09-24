@@ -30,8 +30,7 @@ export default function Dashboard(props) {
 	useEffect(() => {
 		RequestAPI("GET", "/places", {
 			token: props.giveToken
-		}
-		)
+		})
 			.then(result => {
 				if (result.status === 200) {
 					const items = result.data
@@ -42,7 +41,7 @@ export default function Dashboard(props) {
 			}).catch(e => {
 				setManageDashboard({ ...manageDashboard, isError: true })
 			});
-	}, [])
+	}, [props, manageDashboard])
 
 	const displayReturn = () => {
 		setManageDashboard({ ...manageDashboard, displayMobileInfo: false })

@@ -1,12 +1,12 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { Map, TileLayer } from "react-leaflet";
 
 import './style/LeafletNude.css';
 
 export default function LeafletNude() {
 
-	const [manageMap, setManageMap] = useState({
+	const manageMap = ({
 		center: [48.854730, 2.346803],
 		zoom: 14
 	})

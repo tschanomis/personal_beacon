@@ -48,7 +48,7 @@ export default function PasswordReset(props) {
 		const urlParams = new URLSearchParams(queryString);
 		const token = urlParams.get('token');
 		setManagePasswordReset({ ...managePasswordReset, token: token });
-	}, [])
+	}, [managePasswordReset])
 
 	if (managePasswordReset.validReset) {
 		return <Redirect to="/" />
