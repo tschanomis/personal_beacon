@@ -1,75 +1,73 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import axios from 'axios';
+import RequestAPI from "../Utils/API";
 
 import './style/CardForm.css';
 
-class PasswordReset extends React.Component {
-	state = {
+export default function PasswordReset(props) {
+
+	const [managePasswordReset, setManagePasswordReset] = useState({
 		email: null,
 		password: null,
 		password_confirmation: null,
-		token: null,
+		token: 'null',
 		validReset: false,
-	}
+	})
 
-	handleChange = (e) => {
+	const handleChange = (e) => {
 		const value = e.target.value
-		this.setState({ ...this.state, [e.target.name]: value })
+		setManagePasswordReset({ ...managePasswordReset, [e.target.name]: value })
 	}
 
-	handleSubmit = (e) => {
-		if (this.state.password === this.state.password_confirmation) {
-			axios.post("http://ec2-18-218-63-27.us-east-2.compute.amazonaws.com:443/api/password/reset", {
-				email: this.state.email,
-				password: this.state.password,
-				password_confirmation: this.state.password_confirmation,
-				token: this.state.token,
+	const handleSubmit = (e) => {
+		if (managePasswordReset.password === managePasswordReset.password_confirmation) {
+			RequestAPI("POST", "/password/reset", {
+				email: managePasswordReset.email,
+				password: managePasswordReset.password,
+				password_confirmation: managePasswordReset.password_confirmation,
+				token: managePasswordReset.token,
 			}).then(result => {
 				if (result.status === 200) {
-					this.props.alert("Réinitialisé")
-					this.setState({ validReset: true })
+					props.alert("Réinitialisé")
+					setManagePasswordReset({ ...managePasswordReset, validReset: true })
 				} else {
-					this.props.alert("Erreur")
+					props.alert("Erreur")
 				}
 			}).catch(e => {
-				this.props.alert("Erreur")
+				props.alert("Erreur")
 			});
 			e.preventDefault()
 		} else {
-			this.props.alert("Erreur mot de passe")
+			props.alert("Erreur mot de passe")
 		}
 	}
 
-	componentDidMount = () => {
+	useEffect(() => {
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
 		const token = urlParams.get('token');
-		this.setState({ token: token });
-	}
+		setManagePasswordReset({ ...managePasswordReset, token: token });
+	}, [])
 
-	render() {
-		if (this.state.validReset) {
-			return <Redirect to="/" />
-		}
-		return (
-			<div style={{ display: 'flex', flexDirection: 'column' }}>
-				<div className="CardForm-Container">
-					<h3>Réinitialisation mot de passe</h3>
-					<form className="CardForm-Login" onSubmit={this.handleSubmit}>
-						<label for="email">adresse email</label>
-						<input type="email" name="email" id="email" placeholder="adresse email" onChange={this.handleChange} required />
-						<label for="password">mot de passe</label>
-						<input type="password" name="password" id="password" placeholder="mot de passe" onChange={this.handleChange} required />
-						<label for="password_c">confirmation mot de passe</label>
-						<input type="password" name="password_confirmation" id="password_confirmation" placeholder=" confirmation mot de passe" onChange={this.handleChange} required />
-						<input type="submit" value="REINITIALISATION" className="Cardform-submit" />
-					</form>
-				</div>
-			</div>
-		);
+	if (managePasswordReset.validReset) {
+		return <Redirect to="/" />
 	}
+	return (
+		<div style={{ display: 'flex', flexDirection: 'column' }}>
+			<div className="CardForm-Container">
+				<h3>Réinitialisation mot de passe</h3>
+				<form className="CardForm-Login" onSubmit={handleSubmit}>
+					<label for="email">adresse email</label>
+					<input type="email" name="email" id="email" placeholder="adresse email" onChange={handleChange} required />
+					<label for="password">mot de passe</label>
+					<input type="password" name="password" id="password" placeholder="mot de passe" onChange={handleChange} required />
+					<label for="password_c">confirmation mot de passe</label>
+					<input type="password" name="password_confirmation" id="password_confirmation" placeholder=" confirmation mot de passe" onChange={handleChange} required />
+					<input type="submit" value="REINITIALISATION" className="Cardform-submit" />
+				</form>
+			</div>
+		</div>
+	);
 }
 
-export default PasswordReset;
