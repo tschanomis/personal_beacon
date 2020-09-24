@@ -58,11 +58,11 @@ export default function PasswordReset(props) {
 			<div className="CardForm-Container">
 				<h3>Réinitialisation mot de passe</h3>
 				<form className="CardForm-Login" onSubmit={handleSubmit}>
-					<label for="email">adresse email</label>
+					<label htmlFor="email">adresse email</label>
 					<input type="email" name="email" id="email" placeholder="adresse email" onChange={handleChange} required />
-					<label for="password">mot de passe</label>
+					<label htmlFor="password">mot de passe</label>
 					<input type="password" name="password" id="password" placeholder="mot de passe" onChange={handleChange} required />
-					<label for="password_c">confirmation mot de passe</label>
+					<label htmlFor="password_c">confirmation mot de passe</label>
 					<input type="password" name="password_confirmation" id="password_confirmation" placeholder=" confirmation mot de passe" onChange={handleChange} required />
 					<input type="submit" value="REINITIALISATION" className="Cardform-submit" />
 				</form>
