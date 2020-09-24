@@ -6,10 +6,10 @@ import './style/LeafletNude.css';
 
 export default function LeafletNude() {
 
-	const manageMap = ({
+	const manageMap = {
 		center: [48.854730, 2.346803],
 		zoom: 14
-	})
+	}
 
 	return (
 		<div className="LeafletNude-container">
