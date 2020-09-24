@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -16,113 +16,106 @@ import DashboardMap from '../components/DashboardMap';
 import DashboardInfo from '../components/DashboardInfo';
 import Stats from '../components/Stats';
 
-class Dashboard extends React.Component {
+export default function Dashboard(props) {
 
-	state = {
+	const [manageDashboard, setManageDashboard] = useState({
 		isError: false,
 		items: [],
 		itemIndex: null,
 		fromAddressBar: null,
 		displayMobileInfo: false,
 		activities: null,
-	}
+	})
 
-	displayReturn = () => {
-		this.setState({ displayMobileInfo: false })
-	}
-
-	componentDidMount = () => {
+	useEffect(() => {
 		RequestAPI("GET", "/places", {
-			token: this.props.giveToken
+			token: props.giveToken
 		}
 		)
 			.then(result => {
 				if (result.status === 200) {
 					const items = result.data
-					this.setState({ items: items })
+					setManageDashboard({ ...manageDashboard, items: items })
 				} else {
-					this.setState({ isError: true })
+					setManageDashboard({ ...manageDashboard, isError: true })
 				}
 			}).catch(e => {
-				this.setState({ isError: true })
+				setManageDashboard({ ...manageDashboard, isError: true })
 			});
+	}, [])
+
+	const displayReturn = () => {
+		setManageDashboard({ ...manageDashboard, displayMobileInfo: false })
 	}
 
-	addItem = (item) => {
+	const addItem = (item) => {
 		/*this.setState({
 			items: [...this.state.items, item]
 		})*/
-		this.componentDidMount()
+		setManageDashboard({ ...manageDashboard, items: [...manageDashboard.items, item] })
+		//this.componentDidMount()
 	}
 
-	removeItem = (id) => {
-		/*const idElement = id
-		const refreshItems = this.state.items.filter(item => item.id !== idElement)
-		this.setState({ items: refreshItems })
-		console.log(id)*/
-		this.componentDidMount()
+	const removeItem = (id) => {
+		const refreshItems = manageDashboard.items.filter(item => item.id !== id)
+		setManageDashboard({ ...manageDashboard, items: refreshItems })
 	}
 
-	updateItem = (id) => {
-		this.componentDidMount()
+	const updateItem = (id) => {
+		//this.componentDidMount()
 	}
 
-	getItemIndex = (id) => {
-		this.setState({ itemIndex: id })
+	const getItemIndex = (id) => {
+		setManageDashboard({ ...manageDashboard, itemIndex: id })
 	}
 
-	getAddress = (lat, lon) => {
-		console.log(lat, lon)
-		this.setState({ fromAddressBar: [lat, lon] })
+	const getAddress = (lat, lon) => {
+		setManageDashboard({ ...manageDashboard, fromAddressBar: [lat, lon] })
 	}
 
-	getTokenError = () => {
-		this.setState({ isError: true })
+	const getTokenError = () => {
+		setManageDashboard({ ...manageDashboard, isError: true })
 	}
 
-	render() {
-		if (this.state.isError) {
-			return <Redirect to="/" />;
-		}
-
-		return (
-			<div className="Dashboard">
-				<DashboardInfo items={this.state.items} giveIndex={this.state.itemIndex} displayMobileInfo={this.state.displayMobileInfo} displayReturn={this.displayReturn} />
-				<div className="Dashboard-right">
-					<Router>
-						<DashboardMenu getTokenError={this.getTokenError} />
-						<Switch>
-							<Route path="/dashboard/stats">
-								<div className="Dashboard-right-stats-header">Total activations sur 7 jours :</div>
-								<div className="Stats-container">
-									<Stats giveToken={this.props.giveToken} getActivities={this.getActivities} getTokenError={this.getTokenError} />
-								</div>
-							</Route>
-							<Route path="/dashboard">
-								<DashboardSearch getAddress={this.getAddress} />
-								<DashboardMap
-									items={this.state.items}
-									giveToken={this.props.giveToken}
-									addItem={this.addItem}
-									updateItem={this.updateItem}
-									removeItem={this.removeItem}
-									getItemIndex={this.getItemIndex}
-									fromAddressBar={this.state.fromAddressBar}
-									displayReturn={this.displayReturn}
-									alert={this.props.alert}
-								/>
-								{this.state.displayMobileInfo ?
-									''
-									:
-									<button className="Dashboard-display-info" onClick={() => this.setState({ displayMobileInfo: true })}>+</button>
-								}
-							</Route>
-						</Switch>
-					</Router>
-				</div>
-			</div >
-		);
+	if (manageDashboard.isError) {
+		return <Redirect to="/" />;
 	}
+
+	return (
+		<div className="Dashboard">
+			<DashboardInfo items={manageDashboard.items} giveIndex={manageDashboard.itemIndex} displayMobileInfo={manageDashboard.displayMobileInfo} displayReturn={displayReturn} />
+			<div className="Dashboard-right">
+				<Router>
+					<DashboardMenu getTokenError={getTokenError} />
+					<Switch>
+						<Route path="/dashboard/stats">
+							<div className="Dashboard-right-stats-header">Total activations sur 7 jours :</div>
+							<div className="Stats-container">
+								<Stats giveToken={props.giveToken} /*getActivities={getActivities}*/ getTokenError={getTokenError} />
+							</div>
+						</Route>
+						<Route path="/dashboard">
+							<DashboardSearch getAddress={getAddress} />
+							<DashboardMap
+								items={manageDashboard.items}
+								giveToken={props.giveToken}
+								addItem={addItem}
+								updateItem={updateItem}
+								removeItem={removeItem}
+								getItemIndex={getItemIndex}
+								fromAddressBar={manageDashboard.fromAddressBar}
+								displayReturn={displayReturn}
+								alert={props.alert}
+							/>
+							{manageDashboard.displayMobileInfo ?
+								''
+								:
+								<button className="Dashboard-display-info" onClick={() => setManageDashboard({ manageDashboard, displayMobileInfo: true })}>+</button>
+							}
+						</Route>
+					</Switch>
+				</Router>
+			</div>
+		</div >
+	);
 }
-
-export default Dashboard;
