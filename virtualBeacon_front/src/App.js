@@ -13,20 +13,18 @@ import './App.css';
 
 export default function App() {
 
-  const [manageAppBasic, setManageAppBasic] = useState({
-    token: null,
-    alert: false,
-    message: 'default'
-  })
+  const [manageAppAlert, setManageAppAlert] = useState({ alert: false, message: 'default' })
+  const [manageToken, setManageToken] = useState({ token: null })
+
 
   const handleToken = (token) => {
-    setManageAppBasic({ ...manageAppBasic, token: token })
+    setManageToken({ ...manageToken, token: token })
   }
 
   const handleAlert = (msg) => {
-    setManageAppBasic({ ...manageAppBasic, alert: true, message: msg })
+    setManageAppAlert({ ...manageAppAlert, alert: true, message: msg })
     setTimeout(() => {
-      setManageAppBasic({ ...manageAppBasic, alert: false })
+      setManageAppAlert({ ...manageAppAlert, alert: false })
     }, 2000);
   }
 
@@ -36,7 +34,7 @@ export default function App() {
         <Router>
           <Switch>
             <Route exact path="/dashboard">
-              <Dashboard giveToken={manageAppBasic.token} alert={handleAlert} />
+              <Dashboard giveToken={manageToken.token} alert={handleAlert} />
             </Route>
             <Route path="/password">
               <PasswordReset alert={handleAlert} />
@@ -47,8 +45,8 @@ export default function App() {
           </Switch>
         </Router>
       </div>
-      {manageAppBasic.alert ?
-        <div className="App-alert">{manageAppBasic.message}</div>
+      {manageAppAlert.alert ?
+        <div className="App-alert">{manageAppAlert.message}</div>
         :
         ''}
     </div>

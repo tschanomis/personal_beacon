@@ -1,56 +1,44 @@
-import React from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import RequestAPI from "../Utils/API";
 import moment from 'moment';
 
 import './style/Stats.css';
 
 import StatChart from './StatChart';
 
-class Stats extends React.Component {
+export default function Stats(props) {
 
-	state = {
-		stats: [],
+	const [manageStats, setManageStats] = useState({
 		series: [
 			{
 				name: "",
 				data: []
 			}
 		]
-	}
+	})
 
-	componentDidMount = () => {
-		const token = this.props.giveToken
-		const config = {
-			headers: { Authorization: `Bearer ${token}` }
-		}
+	useEffect(() => {
+		RequestAPI("GET", "/logs", {
+			token: props.giveToken
+		}).then(result => {
+			if (result.status === 200) {
+				const classifyResult = []
+				for (let i = 7; i >= 0; i--) {
+					classifyResult.push((result.data.filter(element => (moment(element.created_at).format('YYYY-MM-D')) === moment().subtract(i, 'days').format('YYYY-MM-D'))).length)
+				};
+				setManageStats({ ...manageStats, series: [{ name: "Activations", data: classifyResult }] })
+			} else {
+				console.log("erreur", result.status)
+			}
+		}).catch(e => {
+			console.log("erreur", e.status)
+			props.getTokenError()
+		});
+	}, [])
 
-		axios.get("http://ec2-18-218-63-27.us-east-2.compute.amazonaws.com:443/api/logs", config
-		)
-			.then(result => {
-				if (result.status === 200) {
-					const stats = result.data
-					this.setState({ stats: stats })
-					const classifyResult = []
-					for (let i = 7; i >= 0; i--) {
-						classifyResult.push((this.state.stats.filter(element => (moment(element.created_at).format('YYYY-MM-D')) === moment().subtract(i, 'days').format('YYYY-MM-D'))).length)
-					};
-					this.setState({ series: [{ name: "Activations", data: classifyResult }] })
-				} else {
-					console.log("erreur")
-				}
-			}).catch(e => {
-				console.log("erreur")
-				this.props.getTokenError()
-			});
-	}
-
-	render() {
-		return (
-			<div className="Stats">
-				<StatChart series={this.state.series} />
-			</div>
-		);
-	}
+	return (
+		<div className="Stats">
+			<StatChart series={manageStats.series} />
+		</div>
+	);
 }
-
-export default Stats;
