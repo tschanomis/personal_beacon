@@ -45,7 +45,7 @@ export default function CardForm(props) {
 
 	const handleForgot = (e) => {
 		RequestAPI("POST", "/password/email", {
-			email: manageLogin.email,
+			email: manageLogin.email
 		}).then(result => {
 			if (result.status === 200) {
 				props.alert("Email envoyé")

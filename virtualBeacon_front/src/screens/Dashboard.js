@@ -27,32 +27,12 @@ export default function Dashboard(props) {
 		activities: null,
 	})
 
-	useEffect(() => {
-		RequestAPI("GET", "/places", {
-			token: props.giveToken
-		})
-			.then(result => {
-				if (result.status === 200) {
-					const items = result.data
-					setManageDashboard({ ...manageDashboard, items: items })
-				} else {
-					setManageDashboard({ ...manageDashboard, isError: true })
-				}
-			}).catch(e => {
-				setManageDashboard({ ...manageDashboard, isError: true })
-			});
-	}, [props, manageDashboard])
-
 	const displayReturn = () => {
 		setManageDashboard({ ...manageDashboard, displayMobileInfo: false })
 	}
 
 	const addItem = (item) => {
-		/*this.setState({
-			items: [...this.state.items, item]
-		})*/
 		setManageDashboard({ ...manageDashboard, items: [...manageDashboard.items, item] })
-		//this.componentDidMount()
 	}
 
 	const removeItem = (id) => {
@@ -61,7 +41,6 @@ export default function Dashboard(props) {
 	}
 
 	const updateItem = (id) => {
-		//this.componentDidMount()
 	}
 
 	const getItemIndex = (id) => {
@@ -76,7 +55,22 @@ export default function Dashboard(props) {
 		setManageDashboard({ ...manageDashboard, isError: true })
 	}
 
+	useEffect(() => {
+		RequestAPI("GET", "/places", {
+			token: props.giveToken
+		}).then(result => {
+			if (result.status === 200) {
+				setManageDashboard({ ...manageDashboard, items: result.data })
+			} else {
+				setManageDashboard({ ...manageDashboard, isError: true })
+			}
+		}).catch(e => {
+			setManageDashboard({ ...manageDashboard, isError: true })
+		})
+	}, [])
+
 	if (manageDashboard.isError) {
+		console.log("return error")
 		return <Redirect to="/" />;
 	}
 
