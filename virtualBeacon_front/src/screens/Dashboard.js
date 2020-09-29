@@ -31,8 +31,8 @@ export default function Dashboard(props) {
 		setManageDashboard({ ...manageDashboard, displayMobileInfo: false })
 	}
 
-	const addItem = (item) => {
-		setManageDashboard({ ...manageDashboard, items: [...manageDashboard.items, item] })
+	const addItem = (newItem) => {
+		setManageDashboard({ ...manageDashboard, items: [...manageDashboard.items, newItem] })
 	}
 
 	const removeItem = (id) => {

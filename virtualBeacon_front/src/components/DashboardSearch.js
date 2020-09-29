@@ -1,74 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 import './style/DashboardSearch.css';
+import { useEffect } from 'react';
 
-class DashboardSearch extends React.Component {
+export default function DashboardSearch(props) {
 
-	state = {
-		start: '',
-		suggestions: [],
-	}
+	const [search, setSearch] = useState('')
+	const [suggestions, setSuggestions] = useState([])
 
-	handleSubmit = (e) => {
-		e.preventDefault();
+	const handleSubmit = (e) => {
+		//e.preventDefault();
 		//this.getStations(this.state.coord[0], this.state.coord[1])
 	}
 
-	handleChange = (e) => {
-		this.setState({ start: e.target.value }, () => {
-			if (this.state.start.length >= 0) {
-				this.getAdress();
-			}
-		})
-	}
-
-	getAdress = () => {
+	const handleChange = (e) => {
 		axios.get('https://api-adresse.data.gouv.fr/search/', {
+			mode: 'cors',
 			params: {
-				q: this.state.start,
+				q: search + e.target.value,
 				limit: '5',
 				lat: 48.8534,
 				lon: 2.3488,
 				city: "Paris",
 			},
-		}).then(response => response.data.features)
-			.then(value => this.setState({ suggestions: value }))
+		}).then(result => setSuggestions(result.data.features))
+		setSearch(e.target.value)
 	}
 
-	getStations = (lat, lon) => {
+	/*const getStations = (lat, lon) => {
 		/*const zoom = this.state.zoom
 		axios.post('http://ec2-18-218-63-27.us-east-2.compute.amazonaws.com/api/places/position', {
 			latitude: latitude,
 			longitude: longitude,
 			rayon: (18 - zoom) * 250
 		})
-			.then(response => this.setState({ items: response.data }))*/
+			.then(response => this.setState({ items: response.data }))
 		this.props.getAddress(lat, lon)
-	}
+	}*/
 
-	suggestionsSelected(value) {
-		this.setState(() => ({
+	/*const suggestionsSelected = (value) => {
+		setManageDashboardSearch(() => ({
 			start: value.properties.label,
 			suggestions: [],
 			coord: value.geometry.coordinates
 		}))
 		const tabCoord = (value.geometry.coordinates.reverse())
-		this.getStations(tabCoord[0], tabCoord[1])
-		this.setState({ bool: true })
-		this.setState({ start: value.properties.label })
-	}
+		props.getStations(tabCoord[0], tabCoord[1])
+		setManageDashboardSearch({ ...manageDashboardSearch, bool: true })
+		setManageDashboardSearch({ ...manageDashboardSearch, start: value.properties.label })
+	}*/
 
-	renderSugegestions() {
-		const { suggestions } = this.state
+	/*const renderSugegestions = () => {
+		const { suggestions } = manageDashboardSearch
 		if (suggestions.length === 0) {
+			console.log("nope")
 			return null
 		}
+		console.log("yep")
 		return (
 			<ul className="result">
 				{suggestions.map(item => (
 					<li
-						onClick={() => this.suggestionsSelected(item)}
+						onClick={() => suggestionsSelected(item)}
 						key={item.properties.label}
 					>
 						{item.properties.label}
@@ -76,30 +70,26 @@ class DashboardSearch extends React.Component {
 				))}
 			</ul>
 		)
-	}
+	}*/
 
-	render() {
-		return (
-			<div className="DashboardSearch">
-				<h5>RECHERCHE ADRESSE</h5>
-				<div className="AutoCompleteText">
-					<form onSubmit={this.handleSubmit}>
-						<input
-							className="AutoCompleteText-input"
-							id="start"
-							name="start"
-							type="text"
-							value={this.state.start}
-							onChange={this.handleChange}
-							placeholder="Adresse"
-							autoComplete="off"
-						/>
-						{this.renderSugegestions()}
-					</form>
-				</div>
+	return (
+		<div className="DashboardSearch">
+			<h5>RECHERCHE ADRESSE</h5>
+			<div className="AutoCompleteText">
+				<form onSubmit={handleSubmit}>
+					<input
+						className="AutoCompleteText-input"
+						id="start"
+						name="start"
+						type="text"
+						value={search.start}
+						onChange={handleChange}
+						placeholder="Adresse"
+						autoComplete="off"
+					/>
+				</form>
 			</div>
-		);
-	}
+		</div>
+	);
 }
 
-export default DashboardSearch;
