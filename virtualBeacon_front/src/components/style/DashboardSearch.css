@@ -10,33 +10,27 @@
   list-style: none;
 }
 
-.AutoCompleteText {
+.SuggestionsText {
   display: flex;
   width: 400px;
   margin-left: 20px;
 }
 
-.AutoCompleteText form {
+.SuggestionsText form {
   width: 400px;
 }
 
-.AutoCompleteText input {
+.SuggestionsText input {
   width: 100%;
   border: solid 1px gray;
   height: 20px;
 }
 
-.bloc-input {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-}
-
-.AutoCompleteText input:focus {
+.SuggestionsText input:focus {
   outline: none;
 }
 
-.result {
+.SuggestionsText-result {
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -52,28 +46,13 @@
   border-radius: 10px;
 }
 
-.AutoCompleteText ul li {
+.SuggestionsText ul li {
   width: 100%;
   margin: 0;
 }
 
-.AutoCompleteText ul li:hover {
+.SuggestionsText ul li:hover {
   cursor: pointer;
-}
-
-.Container-result {
-  margin-top: 40px;
-}
-
-.Block-map--details {
-  width: 100%;
-  margin-top: 20px;
-}
-
-.Block-map--details div {
-  width: 100%;
-  padding: 1px;
-  font-size: 0.9em;
 }
 
 @media only screen and (max-width: 500px) {
@@ -82,8 +61,6 @@
     display: flex;
     align-items: center;
     width: 100vw;
-    background-color: #e8e8e8;
-    color: #233068;
     margin: 0;
     padding: 0;
   }
@@ -92,20 +69,19 @@
     display: none;
   }
 
-  .AutoCompleteText {
-    display: flex;
+  .SuggestionsText {
     width: 100%;
     margin: 0;
     padding: 0;
     justify-content: center;
   }
 
-  .AutoCompleteText form {
+  .SuggestionsText form {
     margin: 5px;
     display: flex;
   }
 
-  .AutoCompleteText-input {
+  .SuggestionsText-input {
     width: 100%;
     border: solid 1px gray;
     height: 20px;
@@ -119,7 +95,7 @@
     margin-top: 45px;
   }
 
-  .AutoCompleteText ul li {
+  .SuggestionsText ul li {
     width: 100%;
     margin: 0;
     padding: 0;
