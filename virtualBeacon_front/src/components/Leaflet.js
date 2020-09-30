@@ -3,6 +3,7 @@ import React from "react";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 
 import axios from 'axios';
+import RequestAPI from "../Utils/API";
 
 import './style/Leaflet.css';
 
@@ -47,22 +48,19 @@ class Leaflet extends React.Component {
 	handleSubmit = (e) => {
 		e.preventDefault()
 
-		const config = {
-			headers: { Authorization: `Bearer ${this.props.giveToken}` }
-		};
-
-		const bodyParameters = {
+		const data = {
 			lat: this.state.new[0],
 			lon: this.state.new[1],
 			name: this.state.newName,
 			description: this.state.newDescription,
-			user_id: 1
+			user_id: 1,
+			token: this.props.giveToken
 		}
 
-		axios.post("http://ec2-18-218-63-27.us-east-2.compute.amazonaws.com:443/api/places/create/position", bodyParameters, config)
+		RequestAPI("POST", "/places/create/position", data)
 			.then(result => {
 				if (result.status === 200) {
-					this.props.addItem(bodyParameters)
+					this.props.addItem(data)
 					this.setState({ savePopup: false, new: null })
 					this.props.alert("Balise ajoutée")
 				} else {
@@ -263,7 +261,7 @@ class Leaflet extends React.Component {
 					/>
 					:
 					<TileLayer
-						url="http://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png"
+						url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
 						attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 					/>
 				}
