@@ -15,7 +15,7 @@ export default function DashboardMap(props) {
 				items={props.items}
 				giveToken={props.giveToken}
 				addItem={props.addItem}
-				updateItem={props.update}
+				updateItem={props.updateItem}
 				removeItem={props.removeItem}
 				getItemIndex={props.getItemIndex}
 				fromAddressBar={props.fromAddressBar}

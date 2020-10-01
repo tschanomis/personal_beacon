@@ -40,7 +40,8 @@ export default function Dashboard(props) {
 		setManageDashboard({ ...manageDashboard, items: refreshItems })
 	}
 
-	const updateItem = (id) => {
+	const updateItem = (elt) => {
+		console.log("test")
 	}
 
 	const getItemIndex = (id) => {
