@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 
 import RequestAPI from "../Utils/API";
@@ -30,7 +30,7 @@ export default function Leaflet(props) {
 			center: coord,
 			new: coord
 		}));
-		//props.displayReturn();
+		props.displayReturn();
 	}
 
 	const saveMarker = () => {
@@ -128,8 +128,15 @@ export default function Leaflet(props) {
 			});
 	}
 
+	useEffect(() => {
+		const address = props.fromAddressBar
+		setManageLeaflet(manageLeaflet => (
+			{ ...manageLeaflet, center: address, new: address }
+		))
+	}, [props.fromAddressBar])
+
 	return (
-		<Map ref={mapRef} onClick={addMarker} center={manageLeaflet.center} zoom={manageLeaflet.zoom} >
+		<Map ref={mapRef} onClick={addMarker} center={manageLeaflet.center} zoom={manageLeaflet.zoom}>
 			{/* Fixed pin */}
 			{props.items.map((pin, i) => (
 				<Marker
@@ -163,7 +170,7 @@ export default function Leaflet(props) {
 					}}
 				>
 					{manageLeaflet.modifyPopup ?
-						<div className="Popup-modify">
+						<div className="Popup-modify" >
 							<div className="Popup-modify-header">
 								<h2>Modifier: </h2>
 								<p>{manageLeaflet.modifyName}</p>
