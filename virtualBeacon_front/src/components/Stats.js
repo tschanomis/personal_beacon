@@ -26,15 +26,14 @@ export default function Stats(props) {
 				for (let i = 7; i >= 0; i--) {
 					classifyResult.push((result.data.filter(element => (moment(element.created_at).format('YYYY-MM-D')) === moment().subtract(i, 'days').format('YYYY-MM-D'))).length)
 				};
-				setManageStats({ ...manageStats, series: [{ name: "Activations", data: classifyResult }] })
+				setManageStats(manageStats => ({ ...manageStats, series: [{ name: "Activations", data: classifyResult }] }))
 			} else {
 				console.log("erreur", result.status)
 			}
 		}).catch(e => {
-			console.log("erreur", e.status)
 			props.getTokenError()
 		});
-	}, [])
+	}, [props])
 
 	return (
 		<div className="Stats">

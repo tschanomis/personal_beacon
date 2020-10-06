@@ -233,13 +233,13 @@ export default function Leaflet(props) {
 								<h2>Ajout balise: </h2>
 								<hr />
 								<form className="Popup-temp-adding-form" onSubmit={handleSubmit}>
-									<label for="newName">Nom de balise</label>
+									<label htmlFor="newName">Nom de balise</label>
 									<input type="text" name="newName" id="name" placeholder="Nom de balise" onChange={handleChange} />
 									<div className="Popup-temp-adding-form-geo">
 										<h4>Géo : </h4>
 										<p>{manageLeaflet.new[0]}, {manageLeaflet.new[1]}</p>
 									</div>
-									<label for="newDescription">Description de la balise</label>
+									<label htmlFor="newDescription">Description de la balise</label>
 									<textarea name="newDescription" id="description" placeholder="Description de la balise" rows={6} onChange={handleChange} />
 									<input type="submit" value="ENREGISTRER" className="Popup-temp-adding-form-submit" />
 								</form>

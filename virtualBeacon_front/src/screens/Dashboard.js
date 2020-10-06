@@ -61,14 +61,14 @@ export default function Dashboard(props) {
 			token: props.giveToken
 		}).then(result => {
 			if (result.status === 200) {
-				setManageDashboard({ ...manageDashboard, items: result.data })
+				setManageDashboard(manageDashboard => ({ ...manageDashboard, items: result.data }))
 			} else {
-				setManageDashboard({ ...manageDashboard, isError: true })
+				setManageDashboard(manageDashboard => ({ ...manageDashboard, isError: true }))
 			}
 		}).catch(e => {
-			setManageDashboard({ ...manageDashboard, isError: true })
+			setManageDashboard(manageDashboard => ({ ...manageDashboard, isError: true }))
 		})
-	}, [])
+	}, [props.giveToken])
 
 	if (manageDashboard.isError) {
 		console.log("return error")

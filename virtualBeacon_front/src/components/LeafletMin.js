@@ -1,15 +1,15 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { Map, TileLayer } from "react-leaflet";
 
 import './style/LeafletMin.css';
 
 export default function Leaflet(props) {
 
-	const [manageLeafletMin, setManageLeafletMin] = useState({
+	const manageLeafletMin = {
 		center: [48.854730, 2.346803],
 		zoom: 14
-	})
+	}
 
 	return (
 		<div className="LeafletMin">

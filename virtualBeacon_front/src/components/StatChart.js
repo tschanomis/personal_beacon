@@ -24,7 +24,7 @@ export default function StatChart(props) {
 		for (let i = 7; i >= 0; i--) {
 			dates.push(moment().subtract(i, 'days').format('D/MM'))
 		}
-		setManageStatChart({ ...manageStatChart, options: { ...manageStatChart.options, xaxis: { categories: dates } } })
+		setManageStatChart(manageStatChart => ({ ...manageStatChart, options: { ...manageStatChart.options, xaxis: { categories: dates } } }))
 	}, [])
 
 	return (

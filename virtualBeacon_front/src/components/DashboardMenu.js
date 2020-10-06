@@ -12,7 +12,6 @@ export default function DashboardMenu(props) {
 	})
 
 	const handleClick = (e) => {
-		//e.preventDefault()
 		setManageDashboardMenu({ ...manageDashboardMenu, selected: e.currentTarget.id })
 	}
 
