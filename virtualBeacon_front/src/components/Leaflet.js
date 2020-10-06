@@ -45,14 +45,13 @@ export default function Leaflet(props) {
 			lon: manageLeaflet.new[1],
 			name: manageLeaflet.newName,
 			description: manageLeaflet.newDescription,
-			//user_id: 1,
 			token: props.giveToken
 		}
 
 		RequestAPI("POST", "/places/create/position", data)
 			.then(result => {
 				if (result.status === 200) {
-					console.log(result.data)
+					data.id = result.data.id
 					props.addItem(data)
 					setManageLeaflet({ ...manageLeaflet, savePopup: false, new: null })
 					props.alert("Balise ajoutée")
@@ -76,7 +75,6 @@ export default function Leaflet(props) {
 	const handleDelete = (e) => {
 		e.preventDefault()
 		const id = manageLeaflet.activePark.id
-		console.log(id)
 		RequestAPI("DELETE", `/places/delete/${id}`, {
 			token: props.giveToken
 		}).then(result => {
