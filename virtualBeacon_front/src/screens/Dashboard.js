@@ -85,7 +85,7 @@ export default function Dashboard(props) {
 						<Route path="/dashboard/stats">
 							<div className="Dashboard-right-stats-header">Total activations sur 7 jours :</div>
 							<div className="Stats-container">
-								<Stats giveToken={props.giveToken} /*getActivities={getActivities}*/ getTokenError={getTokenError} />
+								<Stats giveToken={props.giveToken} getTokenError={getTokenError} />
 							</div>
 						</Route>
 						<Route path="/dashboard">

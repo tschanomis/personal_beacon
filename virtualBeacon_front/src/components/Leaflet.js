@@ -1,8 +1,7 @@
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 
-import axios from 'axios';
 import RequestAPI from "../Utils/API";
 
 import './style/Leaflet.css';
@@ -31,7 +30,7 @@ export default function Leaflet(props) {
 			center: coord,
 			new: coord
 		}));
-		props.displayReturn();
+		//props.displayReturn();
 	}
 
 	const saveMarker = () => {
@@ -46,13 +45,14 @@ export default function Leaflet(props) {
 			lon: manageLeaflet.new[1],
 			name: manageLeaflet.newName,
 			description: manageLeaflet.newDescription,
-			user_id: 1,
+			//user_id: 1,
 			token: props.giveToken
 		}
 
 		RequestAPI("POST", "/places/create/position", data)
 			.then(result => {
 				if (result.status === 200) {
+					console.log(result.data)
 					props.addItem(data)
 					setManageLeaflet({ ...manageLeaflet, savePopup: false, new: null })
 					props.alert("Balise ajoutée")
@@ -76,6 +76,7 @@ export default function Leaflet(props) {
 	const handleDelete = (e) => {
 		e.preventDefault()
 		const id = manageLeaflet.activePark.id
+		console.log(id)
 		RequestAPI("DELETE", `/places/delete/${id}`, {
 			token: props.giveToken
 		}).then(result => {
@@ -129,10 +130,6 @@ export default function Leaflet(props) {
 			});
 	}
 
-	useEffect(() => {
-		console.log("hello")
-	}, [])
-
 	return (
 		<Map ref={mapRef} onClick={addMarker} center={manageLeaflet.center} zoom={manageLeaflet.zoom} >
 			{/* Fixed pin */}
@@ -149,7 +146,7 @@ export default function Leaflet(props) {
 							activePark: pin,
 							center: [pin.lat, pin.lon]
 						}));
-						//props.getItemIndex(manageLeaflet.activePark.id)
+						props.getItemIndex(pin.id)
 					}}
 				/>
 			))}
