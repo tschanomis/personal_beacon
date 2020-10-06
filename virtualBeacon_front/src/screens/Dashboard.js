@@ -41,7 +41,7 @@ export default function Dashboard(props) {
 	}
 
 	const updateItem = (elt) => {
-		console.log("test")
+
 	}
 
 	const getItemIndex = (id) => {
@@ -71,7 +71,6 @@ export default function Dashboard(props) {
 	}, [props.giveToken])
 
 	if (manageDashboard.isError) {
-		console.log("return error")
 		return <Redirect to="/" />;
 	}
 
@@ -102,7 +101,7 @@ export default function Dashboard(props) {
 								alert={props.alert}
 							/>
 							{manageDashboard.displayMobileInfo ?
-								''
+								null
 								:
 								<button className="Dashboard-display-info" onClick={() => setManageDashboard({ manageDashboard, displayMobileInfo: true })}>+</button>
 							}
