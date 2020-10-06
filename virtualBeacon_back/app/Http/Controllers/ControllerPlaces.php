@@ -145,8 +145,8 @@ class ControllerPlaces extends Controller
 				];
 			}
 
-			DB::table('places')->insert($newSpot);
-			return Response::json(['ok' => "Ajout station."], 200);
+			$test = DB::table('places')->insert($newSpot);
+			return Response::json(['ok' => "Ajout station.", 'test' => $test], 200);
 		} else {
 			return Response::json(['error' => "erreur coordonées geo."], 400);
 		}
@@ -179,7 +179,7 @@ class ControllerPlaces extends Controller
 	 * 				type="array", 
 	 * 				@OA\Items(ref="#/components/schemas/Erreurs"), 
 	 * 				description="Tableau d'erreur"),
-	 * 		)
+	 * 		)A
 	 * 	)
 	 */
 
