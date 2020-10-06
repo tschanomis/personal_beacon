@@ -145,13 +145,12 @@ class ControllerPlaces extends Controller
 				];
 			}
 
-			$test = DB::table('places')->insert($newSpot);
-			return Response::json(['ok' => "Ajout station.", 'test' => $test], 200);
+			$insertReturnId = DB::table('places')->insertGetId($newSpot);
+			return Response::json(['ok' => "Ajout station.", 'id' => $insertReturnId], 200);
 		} else {
 			return Response::json(['error' => "erreur coordonées geo."], 400);
 		}
 	}
-
 	/**
 	 *  @OA\Post(
 	 * 		path="/places/position",
