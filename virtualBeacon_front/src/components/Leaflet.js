@@ -117,8 +117,8 @@ export default function Leaflet(props) {
 						modifyPopup: false,
 						activePark: null
 					}))
-					props.getItemIndex(null)
 					props.updateItem(data)
+					props.getItemIndex(null)
 					props.alert("Modification effectuée")
 				} else {
 					props.alert("Erreur modification")

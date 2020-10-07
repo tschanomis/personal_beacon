@@ -40,8 +40,15 @@ export default function Dashboard(props) {
 		setManageDashboard({ ...manageDashboard, items: refreshItems })
 	}
 
-	const updateItem = (elt) => {
-
+	const updateItem = (item) => {
+		/*const refreshItems = manageDashboard.items.map(elt => {
+			if (elt.id === item.id) {
+				return { ...elt, name: item.name, description: item.description }
+			} else {
+				return elt
+			}
+		})*/
+		console.log(item)
 	}
 
 	const getItemIndex = (id) => {
