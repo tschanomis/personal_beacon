@@ -12,7 +12,7 @@ export default function DashboardMenu(props) {
 	})
 
 	const handleClick = (e) => {
-		setManageDashboardMenu({ ...manageDashboardMenu, selected: e.currentTarget.id })
+		setManageDashboardMenu({ ...manageDashboardMenu, selected: Number(e.currentTarget.id) })
 	}
 
 	return (
@@ -39,7 +39,7 @@ export default function DashboardMenu(props) {
 					<Link onClick={() => props.getTokenError()}>Déconnexion</Link>
 				</div>
 				:
-				''
+				null
 			}
 		</div>
 	)

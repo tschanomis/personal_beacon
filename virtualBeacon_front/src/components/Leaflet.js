@@ -30,7 +30,7 @@ export default function Leaflet(props) {
 			center: coord,
 			new: coord
 		}));
-		props.displayReturn();
+		//props.displayReturn();
 	}
 
 	const saveMarker = () => {
@@ -84,7 +84,6 @@ export default function Leaflet(props) {
 					modifyPopup: false,
 					activePark: null
 				}))
-				props.getItemIndex(null)
 				props.removeItem(id)
 				props.alert("Suppression effectuée")
 			} else {
@@ -118,7 +117,6 @@ export default function Leaflet(props) {
 						activePark: null
 					}))
 					props.updateItem(data)
-					props.getItemIndex(null)
 					props.alert("Modification effectuée")
 				} else {
 					props.alert("Erreur modification")

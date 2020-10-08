@@ -37,18 +37,18 @@ export default function Dashboard(props) {
 
 	const removeItem = (id) => {
 		const refreshItems = manageDashboard.items.filter(item => item.id !== id)
-		setManageDashboard({ ...manageDashboard, items: refreshItems })
+		setManageDashboard({ ...manageDashboard, items: refreshItems, itemIndex: null })
 	}
 
 	const updateItem = (item) => {
-		/*const refreshItems = manageDashboard.items.map(elt => {
+		const refreshItems = manageDashboard.items.map(elt => {
 			if (elt.id === item.id) {
 				return { ...elt, name: item.name, description: item.description }
 			} else {
 				return elt
 			}
-		})*/
-		console.log(item)
+		})
+		setManageDashboard({ ...manageDashboard, items: refreshItems, itemIndex: null })
 	}
 
 	const getItemIndex = (id) => {
@@ -83,7 +83,12 @@ export default function Dashboard(props) {
 
 	return (
 		<div className="Dashboard">
-			<DashboardInfo items={manageDashboard.items} giveIndex={manageDashboard.itemIndex} displayMobileInfo={manageDashboard.displayMobileInfo} displayReturn={displayReturn} />
+			<DashboardInfo
+				items={manageDashboard.items}
+				giveIndex={manageDashboard.itemIndex}
+				displayMobileInfo={manageDashboard.displayMobileInfo}
+				displayReturn={displayReturn}
+			/>
 			<div className="Dashboard-right">
 				<Router>
 					<DashboardMenu getTokenError={getTokenError} />

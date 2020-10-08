@@ -23,7 +23,6 @@ export default function DashboardSearch(props) {
 		setSuggestions([])
 		setSearch(value.properties.label)
 		const tabCoord = (value.geometry.coordinates.reverse())
-		console.log(tabCoord)
 		props.getAddress(tabCoord[0], tabCoord[1])
 	}
 
