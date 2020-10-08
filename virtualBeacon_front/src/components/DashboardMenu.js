@@ -31,10 +31,10 @@ export default function DashboardMenu(props) {
 			<div className="DashboardMenu-account">
 				<p>Username / email</p>
 				<div className="DashboardMenu-account-picture"></div>
-				<span className="DashboardMenu-account-arrow" onClick={() => setManageDashboardMenu({ ...manageDashboardMenu, displayAccount: !manageDashboardMenu.displayAccount })}>v</span>
+				<span className="DashboardMenu-account-arrow" style={{ transform: manageDashboardMenu.displayAccount ? 'rotate(180deg)' : '' }} onClick={() => setManageDashboardMenu({ ...manageDashboardMenu, displayAccount: !manageDashboardMenu.displayAccount })}>v</span>
 			</div>
 			{manageDashboardMenu.displayAccount ?
-				< div className="DashboardMenu-account-options" >
+				< div className="DashboardMenu-account-options" style={{ animation: 'linear 0.1s slidein forwards' }}>
 					<Link>Compte</Link>
 					<Link onClick={() => props.getTokenError()}>Déconnexion</Link>
 				</div>
