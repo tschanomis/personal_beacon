@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import './style/DashboardMenu.css';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 export default function DashboardMenu(props) {
 
@@ -19,19 +19,19 @@ export default function DashboardMenu(props) {
 		<div className="DashboardMenu">
 			<div className="DashboardMenu-body">
 				<div className="DashboardMenu-body-item" id="1" onClick={handleClick} >
-					<Link to="/dashboard"><p style={{ borderBottom: manageDashboardMenu.selected === 1 ? '2px white solid' : 'none' }}>Dashboard</p></Link>
+					<NavLink to="/dashboard"><p style={{ borderBottom: manageDashboardMenu.selected === 1 ? '2px white solid' : 'none' }}>Dashboard</p></NavLink>
 				</div>
 				<div className="DashboardMenu-body-item" id="2" onClick={handleClick} >
 					<p style={{ borderBottom: manageDashboardMenu.selected === 2 ? '2px white solid' : 'none' }}>Import</p>
 				</div>
 				<div className="DashboardMenu-body-item" id="3" onClick={handleClick} >
-					<Link to="/dashboard/stats"><p style={{ borderBottom: manageDashboardMenu.selected === 3 ? '2px white solid' : 'none' }}>Statistiques</p></Link>
+					<NavLink to="/dashboard/stats"><p style={{ borderBottom: manageDashboardMenu.selected === 3 ? '2px white solid' : 'none' }}>Statistiques</p></NavLink>
 				</div>
 			</div>
 			<div className="DashboardMenu-account">
 				<p>Username / email</p>
 				<div className="DashboardMenu-account-picture"></div>
-				<span className="DashboardMenu-account-arrow" onClick={() => setManageDashboardMenu({ displayAccount: !manageDashboardMenu.displayAccount })}>v</span>
+				<span className="DashboardMenu-account-arrow" onClick={() => setManageDashboardMenu({ ...manageDashboardMenu, displayAccount: !manageDashboardMenu.displayAccount })}>v</span>
 			</div>
 			{manageDashboardMenu.displayAccount ?
 				< div className="DashboardMenu-account-options" >
