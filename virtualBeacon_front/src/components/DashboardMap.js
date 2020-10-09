@@ -21,10 +21,10 @@ export default function DashboardMap(props) {
 				fromAddressBar={props.fromAddressBar}
 				displayReturn={props.displayReturn}
 				alert={props.alert}
-				satelite={satellite}
+				satellite={satellite}
 			/>
 			<button className="Button-map-style" onClick={() => setSatellite(!satellite)}>
-				<LeafletMin satelite={!satellite} />
+				<LeafletMin satellite={!satellite} />
 			</button>
 		</div>
 	);

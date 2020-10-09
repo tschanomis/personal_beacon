@@ -94,9 +94,11 @@ export default function Dashboard(props) {
 					<DashboardMenu getTokenError={getTokenError} />
 					<Switch>
 						<Route path="/dashboard/stats">
-							<div className="Dashboard-right-stats-header">Total activations sur 7 jours :</div>
-							<div className="Stats-container">
-								<Stats giveToken={props.giveToken} getTokenError={getTokenError} />
+							<div className="Dashboard-right-stats">
+								<div className="Dashboard-right-stats-header">Total activations sur 7 jours :</div>
+								<div className="Dashboard-right-stats-container">
+									<Stats giveToken={props.giveToken} getTokenError={getTokenError} />
+								</div>
 							</div>
 						</Route>
 						<Route path="/dashboard">

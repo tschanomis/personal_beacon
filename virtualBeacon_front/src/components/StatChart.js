@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import moment from 'moment';
 
-import './style/ColumnChart.css';
+import './style/StatChart.css';
 
 export default function StatChart(props) {
 
@@ -35,7 +35,7 @@ export default function StatChart(props) {
 						options={manageStatChart.options}
 						series={props.series}
 						type="bar"
-						width="80%"
+						height="500px"
 					/>
 				</div>
 			</div>
