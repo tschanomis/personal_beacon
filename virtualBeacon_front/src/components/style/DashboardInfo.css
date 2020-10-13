@@ -115,7 +115,9 @@
 }
 
 .DashboardInfo-lists-card-info {
-  padding: 10px;
+  max-width: 90%;
+  padding: 5px;
+  overflow: hidden;
 }
 
 @media only screen and (max-width: 500px) {

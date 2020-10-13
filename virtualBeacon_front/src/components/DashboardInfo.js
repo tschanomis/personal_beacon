@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import Donut from './Donut';
 
 import './style/DashboardInfo.css';
