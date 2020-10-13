@@ -5,16 +5,10 @@ import { Map, TileLayer } from "react-leaflet";
 import './style/LeafletMin.css';
 
 export default function Leaflet(props) {
-
-	const manageLeafletMin = {
-		center: [48.854730, 2.346803],
-		zoom: 14
-	}
-
 	return (
 		<div className="LeafletMin">
 			<div className="Leaflet-min-block">	<p>{props.satellite ? 'satellite' : 'carte'}</p></div>
-			<Map center={manageLeafletMin.center} zoom={manageLeafletMin.zoom} zoomControl={false}>
+			<Map center={props.manageMap.center} zoom={props.manageMap.zoom} zoomControl={false}>
 				{props.satellite ?
 					<TileLayer
 						url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"

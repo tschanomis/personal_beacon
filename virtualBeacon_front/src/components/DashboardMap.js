@@ -8,6 +8,14 @@ import './style/DashboardMap.css';
 export default function DashboardMap(props) {
 
 	const [satellite, setSatellite] = useState(false)
+	const [manageMap, setManageMap] = useState({
+		center: [48.854730, 2.346803],
+		zoom: 14
+	})
+
+	const setCenterLeafletMiniature = (center, zoom) => {
+		setManageMap(manageMap => ({ ...manageMap, center: center, zoom: zoom }))
+	}
 
 	return (
 		<div className="DashboardMap">
@@ -22,9 +30,10 @@ export default function DashboardMap(props) {
 				displayReturn={props.displayReturn}
 				alert={props.alert}
 				satellite={satellite}
+				getCenterLeafletMiniature={setCenterLeafletMiniature}
 			/>
 			<button className="Button-map-style" onClick={() => setSatellite(!satellite)}>
-				<LeafletMin satellite={!satellite} />
+				<LeafletMin satellite={!satellite} manageMap={manageMap} />
 			</button>
 		</div>
 	);
