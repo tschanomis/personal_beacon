@@ -100,3 +100,22 @@ input[type="submit"] {
 .Popup-modify-options-button-delete:hover {
   cursor: pointer;
 }
+
+.Button-map-style {
+  position: absolute;
+  right: 2.5%;
+  bottom: 5%;
+  width: 75px;
+  height: 75px;
+  padding: 0;
+  margin: 0;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  border: solid 1px darkgray;
+  overflow: hidden;
+}
+
+.Button-map-style:hover {
+  cursor: pointer;
+}

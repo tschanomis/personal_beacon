@@ -35,8 +35,8 @@ export default function DashboardMenu(props) {
 			</div>
 			{manageDashboardMenu.displayAccount ?
 				< div className="DashboardMenu-account-options" style={{ animation: 'linear 0.1s slidein forwards' }}>
-					<Link>Compte</Link>
-					<Link onClick={() => props.getTokenError()}>Déconnexion</Link>
+					<Link to="Dashboard/">Compte</Link>
+					<Link to="Dashboard/" onClick={() => props.getTokenError()}>Déconnexion</Link>
 				</div>
 				:
 				null

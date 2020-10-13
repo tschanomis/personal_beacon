@@ -7,7 +7,8 @@ import './style/LeafletMin.css';
 export default function Leaflet(props) {
 	return (
 		<div className="LeafletMin">
-			<div className="Leaflet-min-block">	<p>{props.satellite ? 'satellite' : 'carte'}</p></div>
+			<div className="Leaflet-min-block">
+				<p>{props.satellite ? 'satellite' : 'carte'}</p></div>
 			<Map center={props.center} zoom={props.zoom} zoomControl={false}>
 				{props.satellite ?
 					<TileLayer
