@@ -8,7 +8,7 @@ export default function Leaflet(props) {
 	return (
 		<div className="LeafletMin">
 			<div className="Leaflet-min-block">	<p>{props.satellite ? 'satellite' : 'carte'}</p></div>
-			<Map center={props.manageMap.center} zoom={props.manageMap.zoom} zoomControl={false}>
+			<Map center={props.center} zoom={props.zoom} zoomControl={false}>
 				{props.satellite ?
 					<TileLayer
 						url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
