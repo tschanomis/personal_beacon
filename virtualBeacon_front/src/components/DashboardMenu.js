@@ -6,7 +6,7 @@ import './style/DashboardMenu.css';
 
 export default function DashboardMenu() {
 
-	const test = useHistory()
+	const history = useHistory()
 	const [cookies, setCookie, removeCookie] = useCookies()
 	const [manageDashboardMenu, setManageDashboardMenu] = useState({
 		selected: 1,
@@ -23,7 +23,7 @@ export default function DashboardMenu() {
 			<div className="DashboardMenu-body">
 				<Link to="/dashboard"
 					className="inactive"
-					style={{ borderBottom: test.location.pathname === "/dashboard" ? '2px white solid' : 'none' }}
+					style={{ borderBottom: history.location.pathname === "/dashboard" ? '2px white solid' : 'none' }}
 					id="1"
 					onClick={handleClick}
 				>
@@ -31,7 +31,7 @@ export default function DashboardMenu() {
 				</Link>
 				<Link to="/dashboard/import"
 					className="inactive"
-					style={{ borderBottom: test.location.pathname === "/dashboard/import" ? '2px white solid' : 'none' }}
+					style={{ borderBottom: history.location.pathname === "/dashboard/import" ? '2px white solid' : 'none' }}
 					id="2"
 					onClick={handleClick}
 				>
@@ -39,7 +39,7 @@ export default function DashboardMenu() {
 				</Link>
 				<Link to="/dashboard/stats"
 					className="inactive"
-					style={{ borderBottom: test.location.pathname === "/dashboard/stats" ? '2px white solid' : 'none' }}
+					style={{ borderBottom: history.location.pathname === "/dashboard/stats" ? '2px white solid' : 'none' }}
 					id="3"
 					onClick={handleClick}
 				>
@@ -55,7 +55,7 @@ export default function DashboardMenu() {
 				manageDashboardMenu.displayAccount
 					?
 					< div className="DashboardMenu-account-options" style={{ animation: 'linear 0.1s slidein forwards' }}>
-						<Link to="Dashboard/">Compte</Link>
+						<Link to="/dashboard">Compte</Link>
 						<Link to="/" onClick={() => {
 							removeCookie('userTokenBeacon', { path: '/' })
 							setCookie('userEmailBeacon', null)

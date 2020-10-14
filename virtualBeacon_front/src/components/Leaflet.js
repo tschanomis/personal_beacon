@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
+import { useCookies } from 'react-cookie';
 
 import RequestAPI from "../Utils/API";
 
@@ -9,6 +10,7 @@ import './style/Leaflet.css';
 
 export default function Leaflet(props) {
 
+	const [cookies] = useCookies()
 	const [manageLeaflet, setManageLeaflet] = useState({
 		center: [48.854730, 2.346803],
 		zoom: 14,
@@ -46,7 +48,7 @@ export default function Leaflet(props) {
 			lon: manageLeaflet.new[1],
 			name: manageLeaflet.newName,
 			description: manageLeaflet.newDescription,
-			token: props.giveToken
+			token: cookies['userTokenBeacon']
 		}
 
 		RequestAPI("POST", "/places/create/position", data)
@@ -77,7 +79,7 @@ export default function Leaflet(props) {
 		e.preventDefault()
 		const id = manageLeaflet.activePark.id
 		RequestAPI("DELETE", `/places/delete/${id}`, {
-			token: props.giveToken
+			token: cookies['userTokenBeacon']
 		}).then(result => {
 			if (result.status === 204) {
 				setManageLeaflet(manageLeaflet => ({
@@ -106,7 +108,7 @@ export default function Leaflet(props) {
 			name: manageLeaflet.modifyName,
 			description: manageLeaflet.modifyDescription,
 			id: manageLeaflet.activePark.id,
-			token: props.giveToken
+			token: cookies['userTokenBeacon']
 		}
 
 		RequestAPI("PUT", "/places/position", data)
