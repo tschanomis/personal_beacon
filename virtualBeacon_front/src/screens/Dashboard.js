@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useCookies } from "react-cookie";
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -18,6 +19,7 @@ import Stats from '../components/Stats';
 
 export default function Dashboard(props) {
 
+	const [cookies, setCookie] = useCookies()
 	const [manageDashboard, setManageDashboard] = useState({
 		isError: false,
 		items: [],
@@ -59,30 +61,25 @@ export default function Dashboard(props) {
 		setManageDashboard({ ...manageDashboard, fromAddressBar: [lat, lon] })
 	}
 
-	const getTokenError = () => {
-		setManageDashboard({ ...manageDashboard, isError: true })
-	}
-
 	useEffect(() => {
 		RequestAPI("GET", "/places", {
-			token: props.giveToken
+			token: cookies["userTokenBeacon"]
 		}).then(result => {
 			if (result.status === 200) {
 				setManageDashboard(manageDashboard => ({ ...manageDashboard, items: result.data }))
 			} else {
 				setManageDashboard(manageDashboard => ({ ...manageDashboard, isError: true }))
+				setCookie()
 			}
 		}).catch(e => {
 			setManageDashboard(manageDashboard => ({ ...manageDashboard, isError: true }))
+			setCookie()
 		})
-	}, [props.giveToken])
-
-	if (manageDashboard.isError) {
-		return <Redirect to="/" />;
-	}
+	}, [cookies, setCookie])
 
 	return (
 		<div className="Dashboard">
+			{manageDashboard.isError && <Redirect to="/" />}
 			<DashboardInfo
 				items={manageDashboard.items}
 				giveIndex={manageDashboard.itemIndex}
@@ -91,21 +88,20 @@ export default function Dashboard(props) {
 			/>
 			<div className="Dashboard-right">
 				<Router>
-					<DashboardMenu getTokenError={getTokenError} />
+					<DashboardMenu />
 					<Switch>
 						<Route path="/dashboard/stats">
 							<div className="Dashboard-right-stats">
 								<div className="Dashboard-right-stats-header">Total activations sur 7 jours :</div>
 								<div className="Dashboard-right-stats-container">
-									<Stats giveToken={props.giveToken} getTokenError={getTokenError} />
+									<Stats />
 								</div>
 							</div>
 						</Route>
-						<Route path="/dashboard">
+						<Route path="/">
 							<DashboardSearch getAddress={getAddress} />
 							<DashboardMap
 								items={manageDashboard.items}
-								giveToken={props.giveToken}
 								addItem={addItem}
 								updateItem={updateItem}
 								removeItem={removeItem}

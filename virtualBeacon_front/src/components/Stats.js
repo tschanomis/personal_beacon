@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { useCookies } from "react-cookie";
 import RequestAPI from "../Utils/API";
 import moment from 'moment';
 
 import './style/Stats.css';
 
 import StatChart from './StatChart';
+import { Redirect } from 'react-router-dom';
 
-export default function Stats(props) {
+export default function Stats() {
 
+	const [cookies, setCookie] = useCookies()
+	const [redirect, setRedirect] = useState(null)
 	const [manageStats, setManageStats] = useState({
 		series: [
 			{
@@ -18,8 +22,9 @@ export default function Stats(props) {
 	})
 
 	useEffect(() => {
+		console.log("hello")
 		RequestAPI("GET", "/logs", {
-			token: props.giveToken
+			token: cookies["userTokenBeacon"]
 		}).then(result => {
 			if (result.status === 200) {
 				const classifyResult = []
@@ -28,15 +33,18 @@ export default function Stats(props) {
 				};
 				setManageStats(manageStats => ({ ...manageStats, series: [{ name: "Activations", data: classifyResult }] }))
 			} else {
-				console.log("erreur", result.status)
+				setCookie()
+				setRedirect("/")
 			}
 		}).catch(e => {
-			props.getTokenError()
+			setCookie()
+			setRedirect("/")
 		});
-	}, [props])
+	}, [cookies, setCookie])
 
 	return (
 		<div className="Stats">
+			{redirect && <Redirect to={redirect} />}
 			<StatChart series={manageStats.series} />
 		</div>
 	);

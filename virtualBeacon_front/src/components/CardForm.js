@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useCookies } from "react-cookie";
 import {
 	Link,
 	Redirect,
@@ -10,6 +11,7 @@ import './style/CardForm.css';
 
 export default function CardForm(props) {
 
+	const [cookies, setCookie] = useCookies()
 	const [manageLogin, setManageLogin] = useState({
 		isLoggedIn: false,
 		isError: false,
@@ -29,7 +31,14 @@ export default function CardForm(props) {
 			password: manageLogin.password
 		}).then(result => {
 			if (result.status === 200) {
-				props.getToken(result.data.success.token)
+				setCookie("userTokenBeacon", result.data.success.token, {
+					path: "/",
+					maxAge: 86400
+				});
+				setCookie("email", manageLogin.email, {
+					path: "/",
+					maxAge: 86400
+				});
 				setManageLogin({ ...manageLogin, isLoggedIn: true })
 				props.alert(result.data.message)
 			} else {
@@ -59,12 +68,9 @@ export default function CardForm(props) {
 		e.preventDefault()
 	}
 
-	if (manageLogin.isLoggedIn) {
-		return <Redirect to="/dashboard" />;
-	}
-
 	return (
 		<div className="CardForm" >
+			{cookies["userTokenBeacon"] && <Redirect to="/dashboard" />}
 			{manageLogin.forgot ?
 				<div className="CardForm-Container" style={{ justifyContent: 'center' }}>
 					<h3>Réinitialisation mot de passe:</h3>

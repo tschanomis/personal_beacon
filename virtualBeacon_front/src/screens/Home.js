@@ -8,7 +8,7 @@ import CardForm from '../components/CardForm.js';
 export default function Home(props) {
 	return (
 		<div className="Home">
-			<CardForm getToken={props.getToken} alert={props.alert} />
+			<CardForm alert={props.alert} />
 			<LeafletNude />
 		</div>
 	);
