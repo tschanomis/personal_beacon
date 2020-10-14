@@ -22,7 +22,6 @@ export default function Stats() {
 	})
 
 	useEffect(() => {
-		console.log("hello")
 		RequestAPI("GET", "/logs", {
 			token: cookies["userTokenBeacon"]
 		}).then(result => {

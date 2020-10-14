@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 import './style/DashboardMenu.css';
 
-export default function DashboardMenu(props) {
+export default function DashboardMenu() {
 
+	const [cookies, setCookie, removeCookie] = useCookies()
 	const [manageDashboardMenu, setManageDashboardMenu] = useState({
 		selected: 1,
 		hovering: null,
@@ -18,26 +20,32 @@ export default function DashboardMenu(props) {
 	return (
 		<div className="DashboardMenu">
 			<div className="DashboardMenu-body">
-				<NavLink to="/dashboard" className="inactive" style={{ borderBottom: manageDashboardMenu.selected === 1 ? '2px white solid' : 'none' }} id="1" onClick={handleClick}>
+				<Link to="/dashboard" className="inactive" style={{ borderBottom: manageDashboardMenu.selected === 1 ? '2px white solid' : 'none' }} id="1" onClick={handleClick}>
 					Dashboard
-				</NavLink>
-				<NavLink to="/dashboard" className="inactive" style={{ borderBottom: manageDashboardMenu.selected === 2 ? '2px white solid' : 'none' }} id="2" onClick={handleClick} >
+				</Link>
+				<Link to="/dashboard" className="inactive" style={{ borderBottom: manageDashboardMenu.selected === 2 ? '2px white solid' : 'none' }} id="2" onClick={handleClick} >
 					Import
-				</NavLink>
-				<NavLink to="/dashboard/stats" className="inactive" style={{ borderBottom: manageDashboardMenu.selected === 3 ? '2px white solid' : 'none' }} id="3" onClick={handleClick}>
+				</Link>
+				<Link to="/dashboard/stats" className="inactive" style={{ borderBottom: manageDashboardMenu.selected === 3 ? '2px white solid' : 'none' }} id="3" onClick={handleClick}>
 					Statistiques
-				</NavLink>
+				</Link>
 			</div >
 			<div className="DashboardMenu-account">
-				<p>Username / email</p>
+				<p>{cookies['userEmailBeacon']}</p>
 				<div className="DashboardMenu-account-picture"></div>
 				<span className="DashboardMenu-account-arrow" style={{ transform: manageDashboardMenu.displayAccount ? 'rotate(180deg)' : '' }} onClick={() => setManageDashboardMenu({ ...manageDashboardMenu, displayAccount: !manageDashboardMenu.displayAccount })}>v</span>
 			</div>
 			{
-				manageDashboardMenu.displayAccount ?
+				manageDashboardMenu.displayAccount
+					?
 					< div className="DashboardMenu-account-options" style={{ animation: 'linear 0.1s slidein forwards' }}>
 						<Link to="Dashboard/">Compte</Link>
-						<Link to="Dashboard/" onClick={() => props.getTokenError()}>Déconnexion</Link>
+						<Link to="/" onClick={() => {
+							removeCookie('userTokenBeacon', { path: '/' })
+							setCookie('userEmailBeacon', null)
+						}}>
+							Déconnexion
+						</Link>
 					</div>
 					:
 					null

@@ -35,7 +35,7 @@ export default function CardForm(props) {
 					path: "/",
 					maxAge: 86400
 				});
-				setCookie("email", manageLogin.email, {
+				setCookie("userEmailBeacon", manageLogin.email, {
 					path: "/",
 					maxAge: 86400
 				});

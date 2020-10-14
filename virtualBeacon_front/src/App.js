@@ -29,8 +29,6 @@ export default function App() {
   useEffect(() => {
     if (cookies["userTokenBeacon"]) {
       setRedirect("/dashboard");
-    } else {
-      setRedirect(null)
     }
   }, [cookies]);
 
@@ -41,7 +39,7 @@ export default function App() {
         <CookiesProvider>
           <Router>
             <Switch>
-              <Route exact path="/dashboard">
+              <Route path="/dashboard">
                 <Dashboard alert={handleAlert} />
               </Route>
               <Route path="/password">

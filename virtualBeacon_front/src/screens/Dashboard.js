@@ -19,7 +19,7 @@ import Stats from '../components/Stats';
 
 export default function Dashboard(props) {
 
-	const [cookies, setCookie] = useCookies()
+	const [cookies, setCookie, removeCookie] = useCookies()
 	const [manageDashboard, setManageDashboard] = useState({
 		isError: false,
 		items: [],
@@ -69,13 +69,13 @@ export default function Dashboard(props) {
 				setManageDashboard(manageDashboard => ({ ...manageDashboard, items: result.data }))
 			} else {
 				setManageDashboard(manageDashboard => ({ ...manageDashboard, isError: true }))
-				setCookie()
+				removeCookie()
 			}
 		}).catch(e => {
 			setManageDashboard(manageDashboard => ({ ...manageDashboard, isError: true }))
-			setCookie()
+			removeCookie()
 		})
-	}, [cookies, setCookie])
+	}, [cookies, setCookie, removeCookie])
 
 	return (
 		<div className="Dashboard">
@@ -106,8 +106,8 @@ export default function Dashboard(props) {
 								updateItem={updateItem}
 								removeItem={removeItem}
 								getItemIndex={getItemIndex}
-								fromAddressBar={manageDashboard.fromAddressBar}
 								displayReturn={displayReturn}
+								fromAddressBar={manageDashboard.fromAddressBar}
 								alert={props.alert}
 							/>
 							{manageDashboard.displayMobileInfo ?
