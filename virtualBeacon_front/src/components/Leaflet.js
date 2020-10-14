@@ -10,7 +10,9 @@ import './style/Leaflet.css';
 
 export default function Leaflet(props) {
 
-	const [cookies] = useCookies()
+	const mapRef = useRef()
+	const cookies = useCookies()
+	const [satellite, setSatellite] = useState(false)
 	const [manageLeaflet, setManageLeaflet] = useState({
 		center: [48.854730, 2.346803],
 		zoom: 14,
@@ -23,10 +25,6 @@ export default function Leaflet(props) {
 		modifyName: null,
 		modifyDescription: null,
 	})
-
-	const [satellite, setSatellite] = useState(false)
-
-	const mapRef = useRef()
 
 	const addMarker = (e) => {
 		const zoom = mapRef.current.leafletElement.getZoom()
