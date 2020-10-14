@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
 import './style/DashboardMenu.css';
 
 export default function DashboardMenu() {
 
+	const test = useHistory()
 	const [cookies, setCookie, removeCookie] = useCookies()
 	const [manageDashboardMenu, setManageDashboardMenu] = useState({
 		selected: 1,
@@ -20,13 +21,28 @@ export default function DashboardMenu() {
 	return (
 		<div className="DashboardMenu">
 			<div className="DashboardMenu-body">
-				<Link to="/dashboard" className="inactive" style={{ borderBottom: manageDashboardMenu.selected === 1 ? '2px white solid' : 'none' }} id="1" onClick={handleClick}>
+				<Link to="/dashboard"
+					className="inactive"
+					style={{ borderBottom: test.location.pathname === "/dashboard" ? '2px white solid' : 'none' }}
+					id="1"
+					onClick={handleClick}
+				>
 					Dashboard
 				</Link>
-				<Link to="/dashboard" className="inactive" style={{ borderBottom: manageDashboardMenu.selected === 2 ? '2px white solid' : 'none' }} id="2" onClick={handleClick} >
+				<Link to="/dashboard/import"
+					className="inactive"
+					style={{ borderBottom: test.location.pathname === "/dashboard/import" ? '2px white solid' : 'none' }}
+					id="2"
+					onClick={handleClick}
+				>
 					Import
 				</Link>
-				<Link to="/dashboard/stats" className="inactive" style={{ borderBottom: manageDashboardMenu.selected === 3 ? '2px white solid' : 'none' }} id="3" onClick={handleClick}>
+				<Link to="/dashboard/stats"
+					className="inactive"
+					style={{ borderBottom: test.location.pathname === "/dashboard/stats" ? '2px white solid' : 'none' }}
+					id="3"
+					onClick={handleClick}
+				>
 					Statistiques
 				</Link>
 			</div >
