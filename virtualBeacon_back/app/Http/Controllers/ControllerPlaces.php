@@ -284,7 +284,7 @@ class ControllerPlaces extends Controller
 			if (count($spotById) === 1) {
 				return Response::json(($spotById), 200);
 			} else {
-				return Response::json(['Erreur balise' => "La balise n'existe pas."], 500);
+				return Response::json(['Erreur balise' => "La balise n'existe pas."], 404);
 			}
 		} catch (\Throwable $error) {
 			Log::error($error);

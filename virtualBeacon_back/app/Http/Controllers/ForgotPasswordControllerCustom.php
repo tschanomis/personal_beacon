@@ -21,11 +21,6 @@ class ForgotPasswordControllerCustom extends Controller
 
 	use SendsPasswordResetEmails;
 
-	public function test()
-	{
-		return 'test';
-	}
-
 	protected function sendResetLinkResponse(Request $request, $response)
 	{
 		return response(['message' => trans($response)]);

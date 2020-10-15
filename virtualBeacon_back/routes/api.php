@@ -15,25 +15,21 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/test', function () {
-    return ('route test api');
-});
-
 Route::post('login', 'LoginController@login');
 Route::post('/password/email', 'ForgotPasswordControllerCustom@sendResetLinkEmail');
 Route::post('/password/reset', 'ResetPasswordController@reset');
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::post('/user/create', 'LoginController@register');
+    Route::get('/logs', 'ControllerLogs@getLogs');
 
     Route::get('/details', 'LoginController@details');
 
-    Route::get('/logs', 'ControllerLogs@getLogs');
+    Route::post('/user/create', 'LoginController@register');
 
-    Route::delete('/places/delete/{id}', 'ControllerPlaces@deletePosition');
+    Route::get('/places', 'ControllerPlaces@allPlaces');
+    Route::get('/places/{id}', 'ControllerPlaces@byId');
+    Route::post('/places/position', 'ControllerPlaces@byPosition');
     Route::post('/places/create/position', 'ControllerPlaces@createPosition');
     Route::put('/places/position', 'ControllerPlaces@modifyPosition');
-    Route::post('/places/position', 'ControllerPlaces@byPosition');
-    Route::get('/places/{id}', 'ControllerPlaces@byId');
-    Route::get('/places', 'ControllerPlaces@allPlaces');
+    Route::delete('/places/delete/{id}', 'ControllerPlaces@deletePosition');
 });

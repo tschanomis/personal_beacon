@@ -35,7 +35,11 @@ class LoginController extends Controller
 	public function details()
 	{
 		$user = Auth::user();
-		return response()->json(['success' => $user], $this->successStatus);
+		if ($user) {
+			return response()->json(['success' => $user], $this->successStatus);
+		} else {
+			return response()->json(['error' => 'Unauthorised'], 401);
+		}
 	}
 
 	public function register(Request $request)
