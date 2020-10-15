@@ -71,7 +71,8 @@ export default function CardForm(props) {
 	return (
 		<div className="CardForm" >
 			{manageLogin.isLoggedIn && cookies['userTokenBeacon'] && <Redirect to={"/dashboard"} />}
-			{manageLogin.forgot ?
+			{manageLogin.forgot
+				?
 				<div className="CardForm-Container" style={{ justifyContent: 'center' }}>
 					<h3>Réinitialisation mot de passe:</h3>
 					<form className="CardForm-Login" onSubmit={handleForgot}>

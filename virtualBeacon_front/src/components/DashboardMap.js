@@ -9,7 +9,6 @@ export default function DashboardMap(props) {
 		<div className="DashboardMap">
 			<Leaflet
 				items={props.items}
-				giveToken={props.giveToken}
 				addItem={props.addItem}
 				updateItem={props.updateItem}
 				removeItem={props.removeItem}

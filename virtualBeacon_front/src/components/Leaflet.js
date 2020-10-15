@@ -11,7 +11,7 @@ import './style/Leaflet.css';
 export default function Leaflet(props) {
 
 	const mapRef = useRef()
-	const cookies = useCookies()
+	const [cookies] = useCookies()
 	const [satellite, setSatellite] = useState(false)
 	const [manageLeaflet, setManageLeaflet] = useState({
 		center: [48.854730, 2.346803],
@@ -31,7 +31,7 @@ export default function Leaflet(props) {
 		const center = mapRef.current.leafletElement.getCenter()
 		const coord = [e.latlng.lat, e.latlng.lng]
 		setManageLeaflet(manageLeaflet => ({ ...manageLeaflet, new: coord, center: center, zoom: zoom }));
-		//props.displayReturn();
+		props.displayReturn();
 	}
 
 	const saveMarker = () => {
