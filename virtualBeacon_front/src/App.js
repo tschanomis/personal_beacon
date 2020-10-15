@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { CookiesProvider, useCookies } from "react-cookie";
+import React, { useState } from 'react';
+import { CookiesProvider } from "react-cookie";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Redirect
+  Route
 } from 'react-router-dom';
 
 import Home from './screens/Home';
@@ -16,8 +15,6 @@ import './App.css';
 export default function App() {
 
   const [manageAppAlert, setManageAppAlert] = useState({ alert: false, message: 'default' })
-  const [redirect, setRedirect] = useState(null);
-  const cookies = useCookies();
 
   const handleAlert = (msg) => {
     setManageAppAlert({ ...manageAppAlert, alert: true, message: msg })
@@ -26,15 +23,8 @@ export default function App() {
     }, 2000);
   }
 
-  useEffect(() => {
-    if (cookies["userTokenBeacon"]) {
-      setRedirect("/dashboard");
-    }
-  }, [cookies]);
-
   return (
     <div className="App">
-      {cookies["userToken"] && < Redirect push to={redirect} />}
       <div>
         <CookiesProvider>
           <Router>
