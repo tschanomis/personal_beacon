@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 
 class LogSeeder extends Seeder
-{echo $i;
+{
   /**
    * Seed the application's database.
    *
