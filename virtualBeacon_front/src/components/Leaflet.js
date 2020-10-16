@@ -197,7 +197,7 @@ export default function Leaflet(props) {
 											<p>{manageLeaflet.activePark.lat}, {manageLeaflet.activePark.lon}</p>
 										</div>
 										<label htmlFor="modifDescription">Description de la balise</label>
-										<textarea name="modifyDescription" placeholder={manageLeaflet.modifyDescription} rows={6} onChange={handleChange} />
+										<textarea name="modifyDescription" placeholder={manageLeaflet.modifyDescription} rows={6} maxlength="255" onChange={handleChange} />
 										<div className="Popup-modify-options">
 											<button className="Popup-modify-options-button-delete" onClick={handleDelete}>SUPPRIMER</button>
 											<input type="submit" value="MODIFIER" className="Popup-temp-adding-form-submit" />
@@ -208,7 +208,7 @@ export default function Leaflet(props) {
 								<div className="Popup-container">
 									<div className="Popup-container-header">
 										<h2>{manageLeaflet.activePark.name}: </h2>
-										<p>balise numéro:{manageLeaflet.activePark.id}</p>
+										<p>balise id #{manageLeaflet.activePark.id}</p>
 									</div>
 									<hr />
 									<div className="Popup-container-geo">
@@ -263,7 +263,7 @@ export default function Leaflet(props) {
 											<p>{manageLeaflet.new[0]}, {manageLeaflet.new[1]}</p>
 										</div>
 										<label htmlFor="newDescription">Description de la balise</label>
-										<textarea name="newDescription" id="description" placeholder="Description de la balise" rows={6} onChange={handleChange} />
+										<textarea name="newDescription" id="description" placeholder="Description de la balise" rows={6} maxLength="255" onChange={handleChange} />
 										<input type="submit" value="ENREGISTRER" className="Popup-temp-adding-form-submit" />
 									</form>
 								</div>

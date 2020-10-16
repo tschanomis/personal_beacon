@@ -71,6 +71,10 @@ input[type="submit"] {
   align-items: baseline;
 }
 
+.Popup-container-description {
+  overflow-wrap: break-word;
+}
+
 .Popup-container-options {
   display: flex;
   justify-content: flex-end;

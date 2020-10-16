@@ -46,7 +46,7 @@ export default function DashboardInfo(props) {
                 backgroundColor: item.id === props.giveIndex ? '#233068' : '#5ac2ab',
               }} />
               <div className="DashboardInfo-lists-card-info">
-                <p> balise numéro: {item.id}</p>
+                <p> balise id: {item.id}</p>
                 <p> nom: {item.name}</p>
                 <p> description: {item.description}</p>
               </div>
