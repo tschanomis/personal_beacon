@@ -43,7 +43,7 @@ class PasswordResetNotification extends Notification
 	 */
 	public function toMail($notifiable)
 	{
-		$urlToResetForm = "http://ec2-18-218-63-27.us-east-2.compute.amazonaws.com/password/?token=" . $this->token;
+		$urlToResetForm = "http://localhost/3000/password/?token=" . $this->token;
 		return (new MailMessage)
 			->subject(Lang::get('Hello, Reset Password Notification'))
 			->line(Lang::get('You are receiving this email because we received a password reset request for your account.'))

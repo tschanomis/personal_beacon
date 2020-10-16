@@ -165,6 +165,7 @@ class ControllerPlaces extends Controller
 		$id = $position->id;
 
 		try {
+			$double = DB::table('places')->where('name', $name)->get();
 			$result = DB::table('places')->where('id', $id)->where('user_id', $user_id)->update(['name' => $name, 'description' => $description]);
 			return Response::Json($result, 200);
 		} catch (\Throwable $error) {
