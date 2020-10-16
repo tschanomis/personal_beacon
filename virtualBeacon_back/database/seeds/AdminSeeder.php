@@ -13,10 +13,6 @@ class AdminSeeder extends Seeder
    */
   public function run()
   {
-    /*DB::table('logs')->insert([
-      'created_at' => Carbon::now()->subDays(rand(1, 7)),
-      'places_id' => rand(1, 30)
-    ]);*/
     $input['email'] = 'admin@admin.com';
     $input['name'] = 'admin';
     $input['password'] = bcrypt('admin');

@@ -12,9 +12,11 @@ class LogSeeder extends Seeder
    */
   public function run()
   {
-    DB::table('logs')->insert([
-      'created_at' => Carbon::now()->subDays(rand(1, 7)),
-      'places_id' => rand(1, 30)
-    ]);
+    for ($i = 1; $i <= 50; $i++) {
+      DB::table('logs')->insert([
+        'created_at' => Carbon::now()->subDays(rand(1, 7)),
+        'places_id' => rand(1, 30)
+      ]);
+    }
   }
 }

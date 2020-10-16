@@ -7,29 +7,29 @@ servers:
     url: 'http://localhost:8000/api'
     description: 'api geo velib'
 paths:
-  '/places/delete/{name}':
+  '/places/delete/{id}':
     delete:
       operationId: 'App\Http\Controllers\ControllerPlaces::deletePosition'
       parameters:
         -
-          name: name
+          name: id
           in: path
-          description: 'Nom de la station à effacer'
+          description: 'Nom de la balise à supprimer'
           required: true
           schema:
             type: string
       responses:
         '204':
-          description: 'Supression de la station'
+          description: 'Supression de la balise'
           content:
             application/json:
               schema:
-                description: 'Tableau de la station correspondante'
+                description: 'Tableau de la balise correspondante'
                 type: array
                 items:
                   $ref: '#/components/schemas/Suppression'
         '410':
-          description: 'Nom de station déja utilisé'
+          description: 'Erreur supression'
           content:
             application/json:
               schema:
@@ -51,14 +51,14 @@ paths:
       operationId: 'App\Http\Controllers\ControllerPlaces::createPosition'
       responses:
         '200':
-          description: 'Création nouvelle station'
+          description: 'Création nouvelle balise'
           content:
             application/json:
               schema:
                 description: 'Tableau de la station correspondante'
                 type: array
                 items:
-                  $ref: '#/components/schemas/Stations'
+                  $ref: '#/components/schemas/Balises'
         '400':
           description: 'Erreur validité des données client'
           content:
@@ -69,7 +69,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Erreurs'
         '409':
-          description: 'Nom de station déja utilisé'
+          description: 'Nom de balise déja utilisé'
           content:
             application/json:
               schema:
@@ -91,25 +91,16 @@ paths:
       operationId: 'App\Http\Controllers\ControllerPlaces::byPosition'
       responses:
         '200':
-          description: 'Les stations en fonction du rayon'
+          description: 'La balise la plus proche'
           content:
             application/json:
               schema:
                 description: 'Tableau de la station correspondante'
                 type: array
                 items:
-                  $ref: '#/components/schemas/Stations'
+                  $ref: '#/components/schemas/Balises'
         '400':
           description: 'Erreur validité des données client'
-          content:
-            application/json:
-              schema:
-                description: 'Tableau d''erreur'
-                type: array
-                items:
-                  $ref: '#/components/schemas/Erreurs'
-        '404':
-          description: 'Erreur pas de stations'
           content:
             application/json:
               schema:
@@ -126,27 +117,27 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Erreurs'
-  '/places/{name}':
+  '/places/{id}':
     post:
-      operationId: 'App\Http\Controllers\ControllerPlaces::byName'
+      operationId: 'App\Http\Controllers\ControllerPlaces::byId'
       parameters:
         -
-          name: name
+          name: id
           in: path
-          description: 'Nom de la station recherchée'
+          description: 'Id de la balise recherchée'
           required: true
           schema:
-            type: string
+            type: integer
       responses:
         '200':
-          description: 'Une station appelée par son nom'
+          description: 'Une balise appelée par son id'
           content:
             application/json:
               schema:
-                description: 'Tableau de la station correspondante'
+                description: 'Tableau de la balise correspondante'
                 type: array
                 items:
-                  $ref: '#/components/schemas/Stations'
+                  $ref: '#/components/schemas/Balises'
         '404':
           description: Erreur
           content:
@@ -170,14 +161,14 @@ paths:
       operationId: 'App\Http\Controllers\ControllerPlaces::allPlaces'
       responses:
         '200':
-          description: 'Toutes les stations enregistrées'
+          description: 'Toutes les balises enregistrées'
           content:
             application/json:
               schema:
-                description: 'Tableau de toutes les stations enregistrées'
+                description: 'Tableau de toutes les balises enregistrées'
                 type: array
                 items:
-                  $ref: '#/components/schemas/Stations'
+                  $ref: '#/components/schemas/Balises'
         '500':
           description: 'Erreur serveur'
           content:
@@ -189,25 +180,31 @@ paths:
                   $ref: '#/components/schemas/Erreurs'
 components:
   schemas:
+    Balises:
+      properties:
+        id:
+          type: integer
+        lat:
+          type: number
+        lon:
+          type: number
+        name:
+          type: string
+        description:
+          type: string
+        user_id:
+          type: integer
+        created_at:
+          type: string
+        updtated_at:
+          type: string
+      type: object
     Erreurs:
       properties:
         name:
           type: string
         message:
           type: string
-      type: object
-    Stations:
-      properties:
-        id:
-          type: integer
-        Nom_de_la_station:
-          type: string
-        geo:
-          type: string
-        Nombre_vélo_électrique:
-          type: integer
-        Nombre_de_vélo_mécanique:
-          type: integer
       type: object
     Suppression:
       properties:

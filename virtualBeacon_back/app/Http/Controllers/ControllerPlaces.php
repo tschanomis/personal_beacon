@@ -60,12 +60,16 @@ class ControllerPlaces extends Controller
 	{
 		$user = Auth::user();
 		$user_id = $user->id;
-
-		$suppr = DB::table('places')->where('id', $id)->where('user_id', $user_id)->delete();
-		if ($suppr) {
-			return Response::json(['suppression' => 'station suprrimée'], 204);
-		} else {
-			return Response::json(['error' => "Erreur lors de la suppression."], 410);
+		try {
+			$suppr = DB::table('places')->where('id', $id)->where('user_id', $user_id)->delete();
+			if ($suppr) {
+				return Response::json(['suppression' => 'station suprrimée'], 204);
+			} else {
+				return Response::json(['error' => "Erreur lors de la suppression."], 410);
+			}
+		} catch (\Throwable $error) {
+			Log::error($error);
+			return Response::json(['Erreur server' => "Erreur lors de la suppression de la balise."], 500);
 		}
 	}
 
@@ -77,7 +81,7 @@ class ControllerPlaces extends Controller
 	 * 			description="Création nouvelle balise",
 	 * 			@OA\JsonContent(
 	 * 				type="array", 
-	 * 				@OA\Items(ref="#/components/schemas/Stations"), 
+	 * 				@OA\Items(ref="#/components/schemas/Balises"), 
 	 * 				description="Tableau de la station correspondante"),
 	 * 		),
 	 * 		@OA\Response(
@@ -121,36 +125,54 @@ class ControllerPlaces extends Controller
 
 		$Geotest = new GeoGestion();
 		$validGeo = $Geotest->validateLatLong($lat, $lon);
+		try {
+			if ($validGeo) {
+				$countSpots = DB::table('places')->where('user_id', $user_id)->count();
+				if ($countSpots > 14) {
+					return Response::json(['error' => "Plus de balises disponibles."], 403);
+				} else {
+					$nameExist = DB::table('places')->where('name', $name)->get()->first();
+					if ($nameExist) {
+						return Response::json(['error' => "le nom existe déjà."], 409);
+					}
 
-		if ($validGeo) {
-			if (!$name) {
-				return Response::json(['error' => "erreur nom position."], 400);
-			}
-
-			$countSpots = DB::table('places')->where('user_id', $user_id)->count();
-			if ($countSpots > 14) {
-				return Response::json(['error' => "Plus de balises disponibles."], 403);
-			} else {
-				$nameExist = DB::table('places')->where('name', $name)->get()->first();
-				if ($nameExist) {
-					return Response::json(['error' => "le nom existe déjà."], 409);
+					$newSpot = [
+						'lat' => $lat,
+						'lon' => $lon,
+						'name' => $name,
+						'description' => $description,
+						'user_id' => $user_id
+					];
 				}
-
-				$newSpot = [
-					'lat' => $lat,
-					'lon' => $lon,
-					'name' => $name,
-					'description' => $description,
-					'user_id' => $user_id
-				];
+				$insertReturnId = DB::table('places')->insertGetId($newSpot);
+				return Response::json(['ok' => "Ajout station.", 'id' => $insertReturnId], 200);
+			} else {
+				return Response::json(['error' => "erreur coordonnées géo."], 400);
 			}
-
-			$insertReturnId = DB::table('places')->insertGetId($newSpot);
-			return Response::json(['ok' => "Ajout station.", 'id' => $insertReturnId], 200);
-		} else {
-			return Response::json(['error' => "erreur coordonées geo."], 400);
+		} catch (\Throwable $error) {
+			Log::error($error);
+			return Response::json(['Erreur server' => "Erreur lors de la création de la balise."], 500);
 		}
 	}
+
+	public function modifyPosition(Request $position)
+	{
+		$user = Auth::user();
+		$user_id = $user->id;
+
+		$name = $position->name;
+		$description = $position->description;
+		$id = $position->id;
+
+		try {
+			$result = DB::table('places')->where('id', $id)->where('user_id', $user_id)->update(['name' => $name, 'description' => $description]);
+			return Response::Json($result, 200);
+		} catch (\Throwable $error) {
+			Log::error($error);
+			return Response::json(['Erreur server' => "Erreur lors de la modification de la balise."], 500);
+		}
+	}
+
 	/**
 	 *  @OA\Post(
 	 * 		path="/places/position",
@@ -159,7 +181,7 @@ class ControllerPlaces extends Controller
 	 * 			description="La balise la plus proche",
 	 * 			@OA\JsonContent(
 	 * 				type="array", 
-	 * 				@OA\Items(ref="#/components/schemas/Stations"), 
+	 * 				@OA\Items(ref="#/components/schemas/Balises"),
 	 * 				description="Tableau de la station correspondante"),
 	 * 		),
 	 * 		@OA\Response(
@@ -178,31 +200,9 @@ class ControllerPlaces extends Controller
 	 * 				type="array", 
 	 * 				@OA\Items(ref="#/components/schemas/Erreurs"), 
 	 * 				description="Tableau d'erreur"),
-	 * 		)A
+	 * 		)
 	 * 	)
 	 */
-
-
-	public function modifyPosition(Request $position)
-	{
-		$user = Auth::user();
-		$user_id = $user->id;
-
-		$name = $position->name;
-		$description = $position->description;
-		$id = $position->id;
-		/*
-		$result = DB::table('places')->where('id', $id)->where('user_id', $user_id)->update(['name' => $name, 'description' => $description]);
-		return Response::Json($result, 200);
-    */
-		try {
-			$result = DB::table('places')->where('id', $id)->where('user_id', $user_id)->update(['name' => $name, 'description' => $description]);
-			return Response::Json($result, 200);
-		} catch (\Throwable $error) {
-			Log::error($error);
-			return Response::json(['Erreur server' => "Erreur lors de la modification des balise."], 500);
-		}
-	}
 
 	public function byPosition(Request $position)
 	{
@@ -226,24 +226,28 @@ class ControllerPlaces extends Controller
 					'created_at' => $current_date,
 					'places_id' => $beacon_id,
 				];
-				DB::table('logs')->insert($newLog);
+				try {
+					DB::table('logs')->insert($newLog);
+				} catch (\Throwable $error) {
+					Log::error($error);
+				}
 				return Response::json(($result), 200);
 			}
 		} else {
-			return Response::json(['error' => "erreur coordonées geo."], 400);
+			return Response::json(['error' => "erreur coordonnées géo."], 400);
 		}
 	}
 
 	/**
 	 *  @OA\Post(
-	 * 		path="/places/{name}",
+	 * 		path="/places/{id}",
 	 * 		@OA\Parameter(
 	 *         name="id",
 	 * 		   in="path",
-	 *         description="Nom de la balise recherchée",
+	 *         description="Id de la balise recherchée",
 	 *         required=true,
 	 * 		   @OA\Schema(
-	 * 			  type="string",
+	 * 			  type="integer",
 	 *         ),
 	 * 		),
 	 * 		@OA\Response(
@@ -251,7 +255,7 @@ class ControllerPlaces extends Controller
 	 * 			description="Une balise appelée par son id",
 	 * 			@OA\JsonContent(
 	 * 				type="array", 
-	 * 				@OA\Items(ref="#/components/schemas/Stations"), 
+	 * 				@OA\Items(ref="#/components/schemas/Balises"), 
 	 * 				description="Tableau de la balise correspondante"),
 	 * 		),
 	 * 		@OA\Response(
@@ -300,7 +304,7 @@ class ControllerPlaces extends Controller
 	 * 			description="Toutes les balises enregistrées",
 	 * 			@OA\JsonContent(
 	 * 				type="array", 
-	 * 				@OA\Items(ref="#/components/schemas/Stations"), 
+	 * 				@OA\Items(ref="#/components/schemas/Balises"), 
 	 * 				description="Tableau de toutes les balises enregistrées"),
 	 * 		),
 	 * 		@OA\Response(
