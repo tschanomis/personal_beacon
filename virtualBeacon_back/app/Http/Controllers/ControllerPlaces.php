@@ -165,9 +165,13 @@ class ControllerPlaces extends Controller
 		$id = $position->id;
 
 		try {
-			$double = DB::table('places')->where('name', $name)->get();
-			$result = DB::table('places')->where('id', $id)->where('user_id', $user_id)->update(['name' => $name, 'description' => $description]);
-			return Response::Json($result, 200);
+			$nameExist = DB::table('places')->where('name', $name)->get()->first();
+			if ($nameExist && $nameExist->id !== $id) {
+				return Response::json(['error' => "le nom existe déjà."], 409);
+			} else {
+				$result = DB::table('places')->where('id', $id)->where('user_id', $user_id)->update(['name' => $name, 'description' => $description]);
+				return Response::Json($result, 200);
+			}
 		} catch (\Throwable $error) {
 			Log::error($error);
 			return Response::json(['Erreur server' => "Erreur lors de la modification de la balise."], 500);
