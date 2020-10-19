@@ -113,7 +113,7 @@ export default function Dashboard(props) {
 							{manageDashboard.displayMobileInfo ?
 								null
 								:
-								<button className="Dashboard-display-info" onClick={() => setManageDashboard({ manageDashboard, displayMobileInfo: true })}>+</button>
+								<button className="Dashboard-display-info" onClick={() => setManageDashboard({ ...manageDashboard, displayMobileInfo: true })}>+</button>
 							}
 						</Route>
 					</Switch>
