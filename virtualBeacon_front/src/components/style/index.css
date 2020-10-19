@@ -30,13 +30,13 @@
 
 .donut__frame {
   display: flex;
-  stroke: #2ab5ac;
+  stroke: #f08852;
   margin: 0;
   padding: 0;
 }
 
 .donut__circle {
-  stroke: #233068;
+  stroke: #a13c56;
   stroke-linecap: round;
 }
 

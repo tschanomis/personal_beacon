@@ -32,7 +32,7 @@
 input[type="text"],
 textarea {
   width: 100%;
-  border: solid 2px #5ac2ab;
+  border: solid 2px #f08852;
   border-radius: 20px;
   font-family: "Roboto", "Sans-serif";
   font-style: italic;
@@ -43,7 +43,7 @@ input[type="submit"] {
   border: none;
   border-radius: 50px;
   color: white;
-  background: #233068;
+  background: #a13c56;
   font-family: "Roboto";
   font-weight: bold;
   font-size: 1em;

@@ -3,14 +3,14 @@
   align-items: center;
   justify-content: space-between;
   z-index: 3000;
-  background-color: #233068;
+  background: linear-gradient(to right, #a13c56, #f08852);
   width: 100%;
 }
 
 .DashboardMenu-body {
   display: flex;
   font-weight: bold;
-  color: white;
+  color: #dcd199;
 }
 
 .DashboardMenu-body .inactive {
@@ -19,7 +19,7 @@
   align-items: center;
   height: 50%;
   margin: 10px;
-  color: white;
+  color: #dcd199;
 }
 
 .DashboardMenu-body .inactive:hover {
@@ -29,7 +29,7 @@
 .DashboardMenu-account {
   display: flex;
   align-items: center;
-  color: white;
+  color: #dcd199;
   margin-right: 20px;
   font-size: 0.9em;
 }
@@ -38,7 +38,7 @@
   width: 30px;
   height: 30px;
   border-radius: 30px;
-  background-color: gray;
+  background-color: white;
   margin-left: 20px;
 }
 
@@ -60,13 +60,13 @@
   right: 0;
   top: 40px;
   height: 50px;
-  background-color: #233068;
+  background-color: #f08852;
   font-size: 0.9em;
-  border-top: solid 1px #0000003d;
+  border-top: solid 1px rgba(161, 60, 86, 0.25);
 }
 
 .DashboardMenu-account-options a:-webkit-any-link {
-  color: white;
+  color: #dcd199;
   cursor: pointer;
 }
 
@@ -98,7 +98,7 @@
     display: flex;
     justify-content: space-between;
     z-index: 3000;
-    background-color: #233068;
+    background-color: #a13c56;
     width: 100vw;
   }
 

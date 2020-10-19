@@ -8,6 +8,12 @@ import LeafletMin from './LeafletMin';
 
 import './style/Leaflet.css';
 
+import L from 'leaflet';
+
+const iconPerson = new L.Icon({
+	iconUrl: require('../marker-icon.png'),
+});
+
 export default function Leaflet(props) {
 
 	const mapRef = useRef()
@@ -161,8 +167,10 @@ export default function Leaflet(props) {
 							}));
 							props.getItemIndex(pin.id)
 						}}
+						icon={iconPerson}
 					/>
 				))
+
 				}
 
 				{/* Fixed pin pop up */}

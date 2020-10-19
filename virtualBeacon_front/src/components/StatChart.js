@@ -14,7 +14,7 @@ export default function StatChart(props) {
 			xaxis: {
 				categories: []
 			},
-			colors: "#2ab5ac",
+			colors: "#f08852",
 			borderRadius: "100px"
 		}
 	})

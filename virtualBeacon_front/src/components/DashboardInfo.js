@@ -24,11 +24,11 @@ export default function DashboardInfo(props) {
               <p>TOTAL 15</p>
             </div>
             <div className="DashboardInfo-stats-legend-item">
-              <span className="DashboardInfo-stats-legend-item-color" style={{ backgroundColor: '#5ab2ac' }}></span>
+              <span className="DashboardInfo-stats-legend-item-color" style={{ backgroundColor: '#f08852' }}></span>
               <p>actives {props.items.length}</p>
             </div>
             <div className="DashboardInfo-stats-legend-item">
-              <span className="DashboardInfo-stats-legend-item-color" style={{ backgroundColor: '#233068' }} ></span>
+              <span className="DashboardInfo-stats-legend-item-color" style={{ backgroundColor: '#a13c56' }} ></span>
               <p>disponibles {(15 - props.items.length)}</p>
             </div>
           </div>
@@ -43,7 +43,7 @@ export default function DashboardInfo(props) {
           {props.items.filter(item => item.name.toLowerCase().search(manageDashboardInfo.filter.toLowerCase()) !== -1).map((item, i) =>
             <div key={i} className="DashboardInfo-lists-card">
               <span className="DashboardInfo-lists-card-color" style={{
-                backgroundColor: item.id === props.giveIndex ? '#233068' : '#5ac2ab',
+                backgroundColor: item.id === props.giveIndex ? '#a13c56' : '#f08852',
               }} />
               <div className="DashboardInfo-lists-card-info">
                 <p> balise id: {item.id}</p>
