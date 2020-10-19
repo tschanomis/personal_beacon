@@ -15,16 +15,22 @@
 }
 
 .DashboardInfo-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 80px;
   padding: 5px;
 }
 
 .DashboardInfo-header-logo {
-  height: 80px;
-  background: url("../../Logo_N-Vibe_V2.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3.5em;
+  font-weight: bolder;
+  background: linear-gradient(to right, #f08852, #a13c56);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .DashboardInfo-header-main,

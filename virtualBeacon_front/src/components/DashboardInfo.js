@@ -12,7 +12,7 @@ export default function DashboardInfo(props) {
     <div className="DashboardInfo" style={props.displayMobileInfo ? { display: 'flex' } : null}>
       <div className="DashboardInfo-exit" onClick={() => props.displayReturn()}>X</div>
       <div className="DashboardInfo-header">
-        <div className="DashboardInfo-header-logo"></div>
+        <div className="DashboardInfo-header-logo">Beacon.</div>
       </div>
       <div className="DashboardInfo-stats">
         <h4>Nombre de balises</h4>

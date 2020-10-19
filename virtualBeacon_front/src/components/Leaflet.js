@@ -167,7 +167,6 @@ export default function Leaflet(props) {
 							}));
 							props.getItemIndex(pin.id)
 						}}
-						icon={iconPerson}
 					/>
 				))
 

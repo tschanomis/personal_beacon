@@ -23,7 +23,7 @@ export default function DashboardMenu() {
 			<div className="DashboardMenu-body">
 				<Link to="/dashboard"
 					className="inactive"
-					style={{ borderBottom: history.location.pathname === "/dashboard" ? '2px #dcd199 solid' : 'none' }}
+					style={history.location.pathname === "/dashboard" ? { 'border-bottom': '2px white solid', 'color': 'white' } : null}
 					id="1"
 					onClick={handleClick}
 				>
@@ -31,7 +31,7 @@ export default function DashboardMenu() {
 				</Link>
 				<Link to="/dashboard/import"
 					className="inactive"
-					style={{ borderBottom: history.location.pathname === "/dashboard/import" ? '2px #dcd199 solid' : 'none' }}
+					style={history.location.pathname === "/dashboard/import" ? { 'border-bottom': '2px white solid', 'color': 'white' } : null}
 					id="2"
 					onClick={handleClick}
 				>
@@ -39,7 +39,7 @@ export default function DashboardMenu() {
 				</Link>
 				<Link to="/dashboard/stats"
 					className="inactive"
-					style={{ borderBottom: history.location.pathname === "/dashboard/stats" ? '2px #dcd199 solid' : 'none' }}
+					style={history.location.pathname === "/dashboard/stats" ? { 'border-bottom': '2px white solid', 'color': 'white' } : null}
 					id="3"
 					onClick={handleClick}
 				>

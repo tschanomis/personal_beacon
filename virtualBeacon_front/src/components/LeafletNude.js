@@ -15,7 +15,7 @@ export default function LeafletNude() {
 		<div className="LeafletNude-container">
 			<Map center={manageMap.center} zoom={manageMap.zoom} zoomControl={false}>
 				<TileLayer
-					url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+					url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
 					attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 				/>
 			</Map>

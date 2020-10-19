@@ -106,7 +106,7 @@ export default function CardForm(props) {
 				</div>}
 			<div className="CardForm-Visu">
 				<div className="CardForm-Visu-Container">
-					<div className="CardForm-Visu-Logo"></div>
+					<div className="CardForm-Visu-Logo">Beacon.</div>
 					<div className="CardForm-Visu-Text">
 						<h1>Lorem ipsum</h1>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean at dictum nisi. Nullam blandit ultrices ex, non pharetra urna dictum eu.</p>
