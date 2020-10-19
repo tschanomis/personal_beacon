@@ -10,9 +10,9 @@ import './style/Leaflet.css';
 
 import L from 'leaflet';
 
-const iconPerson = new L.Icon({
+/*const iconPerson = new L.Icon({
 	iconUrl: require('../marker-icon.png'),
-});
+});*/
 
 export default function Leaflet(props) {
 
