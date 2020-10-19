@@ -191,13 +191,13 @@ export default function Leaflet(props) {
 									<hr />
 									<form className="Popup-temp-adding-form" onSubmit={handleModify}>
 										<label htmlFor="modifyName">Nom de balise</label>
-										<input type="text" name="modifyName" placeholder={manageLeaflet.modifyName} onChange={handleChange} />
+										<input type="text" name="modifyName" value={manageLeaflet.modifyName} onChange={handleChange} />
 										<div className="Popup-temp-adding-form-geo">
 											<h3>Géo : </h3>
 											<p>{manageLeaflet.activePark.lat}, {manageLeaflet.activePark.lon}</p>
 										</div>
 										<label htmlFor="modifDescription">Description de la balise</label>
-										<textarea name="modifyDescription" placeholder={manageLeaflet.modifyDescription} rows={6} maxlength="255" onChange={handleChange} />
+										<textarea name="modifyDescription" value={manageLeaflet.modifyDescription} rows={6} maxlength="255" onChange={handleChange} />
 										<div className="Popup-modify-options">
 											<button className="Popup-modify-options-button-delete" onClick={handleDelete}>SUPPRIMER</button>
 											<input type="submit" value="MODIFIER" className="Popup-temp-adding-form-submit" />
@@ -207,8 +207,8 @@ export default function Leaflet(props) {
 								:
 								<div className="Popup-container">
 									<div className="Popup-container-header">
-										<h2>{manageLeaflet.activePark.name}: </h2>
-										<p>balise id #{manageLeaflet.activePark.id}</p>
+										<h2>{manageLeaflet.activePark.name}</h2>
+										<p>(id #{manageLeaflet.activePark.id}) :</p>
 									</div>
 									<hr />
 									<div className="Popup-container-geo">

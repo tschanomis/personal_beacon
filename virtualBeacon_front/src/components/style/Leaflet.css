@@ -68,7 +68,7 @@ input[type="submit"] {
 .Popup-container-header,
 .Popup-container-geo {
   display: flex;
-  align-items: baseline;
+  align-items: center;
 }
 
 .Popup-container-description {
@@ -83,6 +83,7 @@ input[type="submit"] {
 .Popup-modify-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .Popup-modify-options {
