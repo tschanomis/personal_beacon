@@ -1,0 +1,85 @@
+version: "3"
+services:
+  #MySQL Service
+  db:
+    image: mysql:5.7.22
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3305:3305"
+    environment:
+      MYSQL_DATABASE: personal_beacon
+      MYSQL_ROOT_PASSWORD: admin
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - dbdata:/var/lib/mysql/
+      - ./virtualBeacon_back/mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - app-network
+    command:
+      [
+        "mysqld",
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_unicode_ci",
+      ]
+
+  #PHP Service
+  app:
+    build:
+      context: virtualBeacon_back
+      dockerfile: Dockerfile
+    image: e-real.fr/php
+    container_name: app
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./virtualBeacon_back/:/var/www
+      - ./virtualBeacon_back/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - app-network
+
+  #Front Service
+  front:
+    build:
+      context: virtualBeacon_front
+      dockerfile: Dockerfile
+    image: front
+    container_name: front
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: front
+      SERVICE_TAGS: dev
+    networks:
+      - app-network
+    ports:
+      - "8080:8080"
+
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8000:8080"
+    volumes:
+      - ./virtualBeacon_back/:/var/www
+      - ./virtualBeacon_back/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local
