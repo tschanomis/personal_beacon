@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "3305:3305"
+      - "3306:3306"
     environment:
       MYSQL_DATABASE: personal_beacon
       MYSQL_ROOT_PASSWORD: admin
