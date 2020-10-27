@@ -10,7 +10,7 @@ init database:
 
 open:
 
-[http://localhost:3000](http://localhost:3000)
+[http://localhost:8080](http://localhost:8080)
 
 email : admin@admin.com
 password : admin
