@@ -4,6 +4,10 @@ run:
 
 ### `docker-compose up -d --build`
 
+install dependencies:
+
+### `docker-compose exec app composer update`
+
 init database:
 
 ### `docker-compose exec app php artisan db:init`
