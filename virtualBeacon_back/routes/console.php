@@ -13,6 +13,13 @@ use Illuminate\Foundation\Inspiring;
 |
 */
 
+Artisan::command('db:init', function () {
+    Artisan::call('migrate:refresh');
+    Artisan::call('passport:install');
+    Artisan::call('db:seed --class=AdminSeeder');
+    $this->comment('db init done');
+})->describe('db init');
+
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');

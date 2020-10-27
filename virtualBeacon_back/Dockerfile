@@ -26,7 +26,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl
-
+        
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -50,9 +50,6 @@ COPY --chown=www:www . /var/www
 
 # Change current user to www
 USER www
-
-#copy ./db_init.sh /tmp    
-#ENTRYPOINT ["/tmp/db_init.sh"]
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
