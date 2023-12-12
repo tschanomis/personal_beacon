@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Map, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 
 import './style/LeafletMin.css';
 
@@ -9,7 +9,7 @@ export default function Leaflet(props) {
 		<div className="LeafletMin">
 			<div className="Leaflet-min-block">
 				<p>{props.satellite ? 'satellite' : 'carte'}</p></div>
-			<Map center={props.center} zoom={props.zoom} zoomControl={false} style={{ "height": "100px", "width": "100px" }}>
+			<MapContainer center={props.center} zoom={props.zoom} zoomControl={false} style={{ "height": "100px", "width": "100px" }}>
 				{props.satellite ?
 					<TileLayer
 						url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
@@ -21,7 +21,7 @@ export default function Leaflet(props) {
 					//attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 					/>
 				}
-			</Map >
+			</MapContainer >
 		</div>
 	);
 }

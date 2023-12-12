@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Map, Marker, Popup, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { useCookies } from 'react-cookie';
 
 import RequestAPI from "../Utils/API";
@@ -7,8 +7,6 @@ import RequestAPI from "../Utils/API";
 import LeafletMin from './LeafletMin';
 
 import './style/Leaflet.css';
-
-import L from 'leaflet';
 
 /*const iconPerson = new L.Icon({
 	iconUrl: require('../marker-icon.png'),
@@ -150,7 +148,7 @@ export default function Leaflet(props) {
 
 	return (
 		<>
-			<Map ref={mapRef} center={manageLeaflet.center} zoom={manageLeaflet.zoom} onClick={addMarker} onViewportChange={viewportChange}>
+			<MapContainer ref={mapRef} center={manageLeaflet.center} zoom={manageLeaflet.zoom} onClick={addMarker} onViewportChange={viewportChange}>
 				{/* Fixed pin */}
 				{props.items.map((pin, i) => (
 					<Marker
@@ -296,7 +294,7 @@ export default function Leaflet(props) {
 							attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 						/>
 				}
-			</Map >
+			</MapContainer >
 			<button className="Button-map-style" onClick={() => setSatellite(!satellite)}>
 				<LeafletMin satellite={!satellite} center={manageLeaflet.center} zoom={manageLeaflet.zoom} />
 			</button>
