@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import RequestAPI from "../Utils/API";
 
@@ -51,7 +51,7 @@ export default function PasswordReset(props) {
 	}, [managePasswordReset])
 
 	if (managePasswordReset.validReset) {
-		return <Redirect to="/" />
+		return <Navigate to="/" />
 	}
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column' }}>

@@ -6,7 +6,7 @@ import moment from 'moment';
 import './style/Stats.css';
 
 import StatChart from './StatChart';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 export default function Stats() {
 
@@ -43,7 +43,7 @@ export default function Stats() {
 
 	return (
 		<div className="Stats">
-			{redirect && <Redirect to={redirect} />}
+			{redirect && <Navigate to={redirect} />}
 			<StatChart series={manageStats.series} />
 		</div>
 	);

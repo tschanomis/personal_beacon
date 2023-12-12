@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useCookies } from "react-cookie";
 import {
 	BrowserRouter as Router,
-	Switch,
+	Routes,
 	Route,
-	Redirect
+	Navigate
 } from 'react-router-dom';
 
 import RequestAPI from "../Utils/API";
@@ -79,7 +79,7 @@ export default function Dashboard(props) {
 
 	return (
 		<div className="Dashboard">
-			{manageDashboard.isError && <Redirect to="/" />}
+			{manageDashboard.isError && <Navigate to="/" />}
 			<DashboardInfo
 				items={manageDashboard.items}
 				giveIndex={manageDashboard.itemIndex}
@@ -87,18 +87,19 @@ export default function Dashboard(props) {
 				displayReturn={displayReturn}
 			/>
 			<div className="Dashboard-right">
-				<Router>
-					<DashboardMenu />
-					<Switch>
-						<Route path="/dashboard/stats">
-							<div className="Dashboard-right-stats">
-								<div className="Dashboard-right-stats-header">Total activations sur 7 jours :</div>
-								<div className="Dashboard-right-stats-container">
-									<Stats />
-								</div>
+				<Routes>
+					<Route path='/' element={<DashboardMenu />} />
+					<Route path="/dashboard/stats" element={() =>
+						<div className="Dashboard-right-stats">
+							<div className="Dashboard-right-stats-header">Total activations sur 7 jours :</div>
+							<div className="Dashboard-right-stats-container">
+								<Stats />
 							</div>
-						</Route>
-						<Route path="/">
+						</div>
+					} />
+
+					<Route path="/" element={() =>
+						<>
 							<DashboardSearch getAddress={getAddress} />
 							<DashboardMap
 								items={manageDashboard.items}
@@ -115,9 +116,10 @@ export default function Dashboard(props) {
 								:
 								<button className="Dashboard-display-info" onClick={() => setManageDashboard({ ...manageDashboard, displayMobileInfo: true })}>+</button>
 							}
-						</Route>
-					</Switch>
-				</Router>
+						</>
+					}>
+					</Route>
+				</Routes>
 			</div>
 		</div >
 	);

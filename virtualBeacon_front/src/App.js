@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { CookiesProvider } from "react-cookie";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 
 import Home from './screens/Home';
 import Dashboard from './screens/Dashboard';
@@ -23,29 +19,69 @@ export default function App() {
     }, 2000);
   }
 
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      children: [
+        {
+          path: "",
+          element: <Home alert={handleAlert} />
+        },
+        {
+          path: "password",
+          element: <PasswordReset alert={handleAlert} />,
+        },
+        {
+          path: "dashboard",
+          element: <Dashboard alert={handleAlert} />,
+          // loader: ({ request }) =>
+          //   fetch("/api/dashboard.json", {
+          //     signal: request.signal,
+          //   }),
+          children: [
+            {
+              path: "import",
+              element: <>import</>
+            },
+            {
+              path: "stats",
+              element: <>stats</>
+            }
+          ]
+        },
+        // {
+        //   element: <AuthLayout />,
+        //   children: [
+        //     {
+        //       path: "login",
+        //       element: <Login />,
+        //       loader: redirectIfUser,
+        //     },
+        //     {
+        //       path: "logout",
+        //       action: logoutUser,
+        //     },
+        //   ],
+        // },
+      ],
+    },
+  ]);
+
   return (
     <div className="App">
       <div>
         <CookiesProvider>
-          <Router>
-            <Switch>
-              <Route path="/dashboard">
-                <Dashboard alert={handleAlert} />
-              </Route>
-              <Route path="/password">
-                <PasswordReset alert={handleAlert} />
-              </Route>
-              <Route exact path="/">
-                <Home alert={handleAlert} />
-              </Route>
-            </Switch>
-          </Router>
+          <RouterProvider router={router} />
+          {/* <Router>
+            <Routes>
+              <Route path="/dashboard" element={<Dashboard alert={handleAlert} />} />
+              <Route path="/password" element={<PasswordReset alert={handleAlert} />} />
+              <Route exact path="/" element={<Home alert={handleAlert} />} />
+            </Routes>
+          </Router> */}
         </CookiesProvider>
       </div>
-      {manageAppAlert.alert ?
-        <div className="App-alert">{manageAppAlert.message}</div>
-        :
-        ''}
+      {manageAppAlert.alert && <div className="App-alert">{manageAppAlert.message}</div>}
     </div>
   );
 }

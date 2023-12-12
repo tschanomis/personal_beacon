@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useCookies } from "react-cookie";
 import {
 	Link,
-	Redirect,
+	Navigate
 } from 'react-router-dom';
 
 import RequestAPI from "../Utils/API";
@@ -70,7 +70,7 @@ export default function CardForm(props) {
 
 	return (
 		<div className="CardForm" >
-			{manageLogin.isLoggedIn && cookies['userTokenBeacon'] && <Redirect to={"/dashboard"} />}
+			{manageLogin.isLoggedIn && cookies['userTokenBeacon'] && <Navigate to={"/dashboard"} />}
 			{manageLogin.forgot
 				?
 				<div className="CardForm-Container" style={{ justifyContent: 'center' }}>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Route, Navigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
 import './style/Home.css';
@@ -20,7 +20,7 @@ export default function Home(props) {
 
 	return (
 		<div className="Home">
-			{redirect && <Redirect to={redirect} />}
+			{redirect && <Route path="about" render={() => <Navigate to={redirect} />} />}
 			<CardForm alert={props.alert} />
 			<LeafletNude />
 		</div>
