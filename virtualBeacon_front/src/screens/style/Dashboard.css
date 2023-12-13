@@ -9,7 +9,6 @@
 .Dashboard-right {
   display: grid;
   grid-template-rows: 40px 40px auto;
-  height: 100vh;
 }
 
 .Dashboard-right-stats {

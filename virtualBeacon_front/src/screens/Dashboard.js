@@ -1,21 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useCookies } from "react-cookie";
-import {
-	BrowserRouter as Router,
-	Routes,
-	Route,
-	Navigate
-} from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 import RequestAPI from "../Utils/API";
 
 import './style/Dashboard.css';
 
 import DashboardMenu from '../components/DashboardMenu';
-import DashboardSearch from '../components/DashboardSearch';
-import DashboardMap from '../components/DashboardMap';
 import DashboardInfo from '../components/DashboardInfo';
-import Stats from '../components/Stats';
 
 export default function Dashboard(props) {
 
@@ -86,9 +78,14 @@ export default function Dashboard(props) {
 				displayMobileInfo={manageDashboard.displayMobileInfo}
 				displayReturn={displayReturn}
 			/>
+
 			<div className="Dashboard-right">
+				<DashboardMenu />
+				<Outlet />
+			</div>
+
+			{/* <div className="Dashboard-right">
 				<Routes>
-					<Route path='/' element={<DashboardMenu />} />
 					<Route path="/dashboard/stats" element={() =>
 						<div className="Dashboard-right-stats">
 							<div className="Dashboard-right-stats-header">Total activations sur 7 jours :</div>
@@ -120,7 +117,7 @@ export default function Dashboard(props) {
 					}>
 					</Route>
 				</Routes>
-			</div>
+			</div> */}
 		</div >
 	);
 }

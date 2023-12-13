@@ -42,9 +42,13 @@ export default function Stats() {
 	}, [cookies, setCookie])
 
 	return (
-		<div className="Stats">
-			{redirect && <Navigate to={redirect} />}
-			<StatChart series={manageStats.series} />
+		<div className="Dashboard-right-stats">
+			<div className="Dashboard-right-stats-header">Total activations sur 7 jours :</div>
+			<div className="Dashboard-right-stats-container"></div>
+			<div className="Stats">
+				{redirect && <Navigate to={redirect} />}
+				<StatChart series={manageStats.series} />
+			</div>
 		</div>
 	);
 }

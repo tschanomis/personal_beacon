@@ -5,6 +5,7 @@
   z-index: 3000;
   background: linear-gradient(to right, #a13c56, #f08852);
   width: 100%;
+  max-height: 40px;
 }
 
 .DashboardMenu-body {

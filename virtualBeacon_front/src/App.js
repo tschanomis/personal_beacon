@@ -6,6 +6,9 @@ import Home from './screens/Home';
 import Dashboard from './screens/Dashboard';
 import PasswordReset from './components/PasswordReset';
 
+import Map from './components/Map';
+import Stats from './components/Stats';
+
 import './App.css';
 
 export default function App() {
@@ -40,12 +43,16 @@ export default function App() {
           //   }),
           children: [
             {
+              path: "",
+              element: <Map />
+            },
+            {
               path: "import",
               element: <>import</>
             },
             {
               path: "stats",
-              element: <>stats</>
+              element: <Stats />
             }
           ]
         },

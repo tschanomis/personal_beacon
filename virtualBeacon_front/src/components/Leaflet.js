@@ -150,7 +150,7 @@ export default function Leaflet(props) {
 		<>
 			<MapContainer ref={mapRef} center={manageLeaflet.center} zoom={manageLeaflet.zoom} onClick={addMarker} onViewportChange={viewportChange}>
 				{/* Fixed pin */}
-				{props.items.map((pin, i) => (
+				{/* {props.items.map((pin, i) => (
 					<Marker
 						key={i}
 						position={[
@@ -168,7 +168,7 @@ export default function Leaflet(props) {
 					/>
 				))
 
-				}
+				} */}
 
 				{/* Fixed pin pop up */}
 				{
