@@ -81,7 +81,7 @@ export default function Dashboard(props) {
 
 			<div className="Dashboard-right">
 				<DashboardMenu />
-				<Outlet />
+				<Outlet context={[getAddress, manageDashboard, addItem, updateItem, removeItem, getItemIndex, displayReturn]} />
 			</div>
 
 			{/* <div className="Dashboard-right">

@@ -31,6 +31,7 @@ export default function Leaflet(props) {
 	})
 
 	const addMarker = (e) => {
+		console.log("hello click");
 		const zoom = mapRef.current.leafletElement.getZoom()
 		const center = mapRef.current.leafletElement.getCenter()
 		const coord = [e.latlng.lat, e.latlng.lng]
@@ -150,7 +151,7 @@ export default function Leaflet(props) {
 		<>
 			<MapContainer ref={mapRef} center={manageLeaflet.center} zoom={manageLeaflet.zoom} onClick={addMarker} onViewportChange={viewportChange}>
 				{/* Fixed pin */}
-				{/* {props.items.map((pin, i) => (
+				{props.items.map((pin, i) => (
 					<Marker
 						key={i}
 						position={[
@@ -168,7 +169,7 @@ export default function Leaflet(props) {
 					/>
 				))
 
-				} */}
+				}
 
 				{/* Fixed pin pop up */}
 				{
