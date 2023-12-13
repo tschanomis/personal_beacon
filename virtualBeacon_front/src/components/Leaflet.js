@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from "react-leaflet";
 import { useCookies } from 'react-cookie';
 
 import RequestAPI from "../Utils/API";
@@ -30,8 +30,19 @@ export default function Leaflet(props) {
 		modifyDescription: null,
 	})
 
+	function MyComponent() {
+		const map = useMapEvents({
+			click: (e) => {
+				map.flyTo(e.latlng, 18)
+				const coord = [e.latlng.lat, e.latlng.lng]
+				setManageLeaflet(manageLeaflet => ({ ...manageLeaflet, new: coord, center: coord, zoom: 18 }));
+				props.displayReturn();
+			}
+		})
+		return null
+	}
+
 	const addMarker = (e) => {
-		console.log("hello click");
 		const zoom = mapRef.current.leafletElement.getZoom()
 		const center = mapRef.current.leafletElement.getCenter()
 		const coord = [e.latlng.lat, e.latlng.lng]
@@ -150,25 +161,26 @@ export default function Leaflet(props) {
 	return (
 		<>
 			<MapContainer ref={mapRef} center={manageLeaflet.center} zoom={manageLeaflet.zoom} onClick={addMarker} onViewportChange={viewportChange}>
+				<MyComponent />
 				{/* Fixed pin */}
-				{props.items.map((pin, i) => (
-					<Marker
-						key={i}
-						position={[
-							pin.lat,
-							pin.lon
-						]}
-						onClick={() => {
-							setManageLeaflet(manageLeaflet => ({
-								...manageLeaflet,
-								activePark: pin,
-								center: [pin.lat, pin.lon]
-							}));
-							props.getItemIndex(pin.id)
-						}}
-					/>
-				))
-
+				{
+					props.items.map((pin, i) => (
+						<Marker
+							key={i}
+							position={[
+								pin.lat,
+								pin.lon
+							]}
+							onClick={() => {
+								setManageLeaflet(manageLeaflet => ({
+									...manageLeaflet,
+									activePark: pin,
+									center: [pin.lat, pin.lon]
+								}));
+								props.getItemIndex(pin.id)
+							}}
+						/>
+					))
 				}
 
 				{/* Fixed pin pop up */}
@@ -188,6 +200,7 @@ export default function Leaflet(props) {
 								props.getItemIndex(null);
 							}}
 						>
+
 							{manageLeaflet.modifyPopup ?
 								<div className="Popup-modify" >
 									<div className="Popup-modify-header">
